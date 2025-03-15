@@ -18,13 +18,22 @@ public class Employee extends BaseEntity {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
-    private String emailAddress;
+    // @Column(nullable = false)
+    // private String emailAddress;
 
-    @Column(nullable = false)
-    private String mobileNumber;
+    // @Column(nullable = false)
+    // private String mobileNumber;
 
-    @Column(nullable = false)
-    private String residentialAddress;
+    // @Column(nullable = false)
+    // private String residentialAddress;
+
+    // @Column(nullable = false)
+    // private String hoursPerWeek;
+
+    // employee status -> permanent, contract
+    // start date => day, month, year
+    // finish date => day, month, year
+    // onGoing => true, false
+    // full-time, part-time
     
 }
