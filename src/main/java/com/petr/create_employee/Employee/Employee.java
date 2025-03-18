@@ -4,27 +4,122 @@ import com.petr.create_employee.common.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="employees")
 public class Employee extends BaseEntity {
-    @Column(nullable = false)
-    private String fistName;
+
+    public enum EmployeeStatus {
+        PERMANENT,
+        CONTRACT
+    }
 
     @Column(nullable = false)
-    private String middleName;
+    private String firstName;
+
+    @Column(nullable = true)
+    private String middleName = "";
 
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
-    private String emailAddress;
+    @Enumerated(EnumType.STRING)
+    private EmployeeStatus status;
 
-    @Column(nullable = false)
-    private String mobileNumber;
 
-    @Column(nullable = false)
-    private String residentialAddress;
+    
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+
+
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+
+
+
+    public String getMiddleName() {
+        return middleName;
+    }
+
+
+
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+
+
+
+    public String getLastName() {
+        return lastName;
+    }
+
+
+
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+
+
+
+    public EmployeeStatus getStatus() {
+        return status;
+    }
+
+
+
+
+    public void setStatus(EmployeeStatus status) {
+        this.status = status;
+    }
+
+
+
+
+    public Employee() {
+    }
+
+    // @Column(unique = true)
+    // private String emailAddress;
+
+    // @Column(unique = true)
+    // private String mobileNumber;
+
+    // @Column()
+    // private String residentialAddress;
+
+    // @Column()
+    // private Date startDate;
+
+    // @Column()
+    // private Date finishDate;
+
+    // @Column()
+    // private Boolean onGoing;
+
+    // @Column()
+    // private Integer hoursPerWeek;
+
+
+
+    // employee status -> permanent, contract
+    // start date => day, month, year
+    // finish date => day, month, year
+    // onGoing => true, false
+    // full-time, part-time
+    
+
     
 }
