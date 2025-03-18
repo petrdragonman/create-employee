@@ -1,7 +1,7 @@
 name: reviewdog
 on:
   pull_request:
-    branches: ["develop"]
+    branches: ["origin", "develop"]
 jobs:
   eslint:
     name: runner / eslint
@@ -10,11 +10,31 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v3
-    #   - uses: reviewdog/action-eslint@v1
-    #     with:
-    #       github_token: ${{ secrets.GITHUB_TOKEN }}
-    #       reporter: github-pr-review
-    #       eslint_flags: "."
-    #       level: error
-    #       fail_on_error: true
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # - name: Set up JDK 21
+      #   uses: actions/setup-java@v2
+      #   with:
+      #     distribution: temurin
+      #     java-version: 21
+
+      # - name: Cache Maven packages
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ~/.m2
+      #     key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+      #     restore-keys: ${{ runner.os }}-maven
+
+      # - name: Build
+      #   run: mvn clean install
+
+      # - name: Run tests
+      #   run: mvn test
+
+      # - name: Upload Test Results
+      #   if: always()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: test-results
+      #     path: create_employee/target/surefire-reports/
