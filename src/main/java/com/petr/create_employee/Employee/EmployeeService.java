@@ -1,32 +1,24 @@
 package com.petr.create_employee.Employee;
 
-import com.petr.create_employee.CreateEmployeeApplication;
-
 import java.util.List;
 import java.util.Optional;
-
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeService {
 
-    private final CreateEmployeeApplication createEmployeeApplication;
-
     private EmployeeRepository repo;
+    private ModelMapper mapper;
 
-    EmployeeService(EmployeeRepository repo, CreateEmployeeApplication createEmployeeApplication) {
+    public EmployeeService(EmployeeRepository repo, ModelMapper mapper) { 
         this.repo = repo;
-        this.createEmployeeApplication = createEmployeeApplication;
+        this.mapper = mapper;
     }
+    
 
     public Employee createEmployee(CreateEmployeeDTO data) {
-        Employee newEmployee = new Employee();
-        newEmployee.setFirstName(data.getFirstName());
-        if(data.getMiddleName() != null) {
-            newEmployee.setMiddleName(data.getMiddleName().trim());
-        }
-        newEmployee.setLastName(data.getLastName().trim());
-        newEmployee.setStatus(data.getStatus());
+        Employee newEmployee = mapper.map(data, Employee.class);
         return this.repo.saveAndFlush(newEmployee);
     }
 
@@ -45,6 +37,31 @@ public class EmployeeService {
         }
         this.repo.delete(result.get());
         return true;
+    }
+
+    public Optional<Employee> updateById(Long id, UpdateEmployeeDTO data) {
+        Optional<Employee> result = this.getById(id);
+        if(result.isEmpty()) {
+            return result;
+        }
+        Employee foundEmployee = result.get();
+        // if(data.getFirstName() != null) {
+        //     foundEmployee.setFirstName(data.getFirstName().trim());
+        // }
+
+        // if(data.getMiddleName() != null) { 
+        //     foundEmployee.setMiddleName(data.getMiddleName().trim());
+        // }
+
+        // if(data.getLastName() != null) { 
+        //     foundEmployee.setLastName(data.getLastName().trim());
+        // }
+        // if(data.getStatus() != null) { 
+        //     foundEmployee.setStatus(data.getStatus());
+        // }
+        mapper.map(data, foundEmployee);
+        this.repo.save(foundEmployee);
+        return Optional.of(foundEmployee);
     }
     
 }
