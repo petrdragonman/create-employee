@@ -2,7 +2,6 @@ package com.petr.create_employee.Employee;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.petr.create_employee.CreateEmployeeApplication;
 import com.petr.create_employee.common.exceptions.NotFoundException;
 
 import jakarta.validation.Valid;
