@@ -1,5 +1,7 @@
 package com.petr.create_employee.Employee;
 
+import java.time.LocalDate;
+
 import com.petr.create_employee.common.BaseEntity;
 
 import jakarta.persistence.Column;
@@ -14,23 +16,36 @@ public class Employee extends BaseEntity {
 
     public enum EmployeeStatus {
         PERMANENT,
-        CONTRACT
+        CONTRACT,
+        CASUAL,
     }
 
     @Column(nullable = false)
     private String firstName;
 
     @Column(nullable = true)
-    private String middleName = "";
+    private String middleName;
 
     @Column(nullable = false)
     private String lastName;
 
+    @Column(unique = true)
+    private String emailAddress;
+
+    @Column(unique = true)
+    private String mobileNumber;
+
     @Enumerated(EnumType.STRING)
     private EmployeeStatus status;
 
+    @Column()
+    private LocalDate startDate;
 
-    
+    @Column()
+    private Boolean onGoing;
+
+    @Column()
+    private Integer hoursPerWeek;
 
     public String getFirstName() {
         return firstName;
@@ -56,6 +71,22 @@ public class Employee extends BaseEntity {
         this.lastName = lastName;
     }
 
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
     public EmployeeStatus getStatus() {
         return status;
     }
@@ -64,23 +95,45 @@ public class Employee extends BaseEntity {
         this.status = status;
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public Boolean getOnGoing() {
+        return onGoing;
+    }
+
+    public void setOnGoing(Boolean onGoing) {
+        this.onGoing = onGoing;
+    }
+
+    public Integer getHoursPerWeek() {
+        return hoursPerWeek;
+    }
+
+    public void setHoursPerWeek(Integer hoursPerWeek) {
+        this.hoursPerWeek = hoursPerWeek;
+    }
+
     public Employee() {
     }
 
-    public Employee(String firstName, String middleName, String lastName, EmployeeStatus status) {
+    public Employee(String firstName, String middleName, String lastName, String emailAddress, String mobileNumber,
+            EmployeeStatus status, LocalDate startDate, Boolean onGoing, Integer hoursPerWeek) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.mobileNumber = mobileNumber;
         this.status = status;
+        this.startDate = startDate;
+        this.onGoing = onGoing;
+        this.hoursPerWeek = hoursPerWeek;
     }
-
-    
-
-    // @Column(unique = true)
-    // private String emailAddress;
-
-    // @Column(unique = true)
-    // private String mobileNumber;
 
     // @Column()
     // private String residentialAddress;
@@ -90,14 +143,6 @@ public class Employee extends BaseEntity {
 
     // @Column()
     // private Date finishDate;
-
-    // @Column()
-    // private Boolean onGoing;
-
-    // @Column()
-    // private Integer hoursPerWeek;
-
-
 
     // employee status -> permanent, contract
     // start date => day, month, year
