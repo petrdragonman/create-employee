@@ -17,16 +17,42 @@ public class ModelMapperConfig {
         return mapper;
     }
 
-    private class StringTrimConverter implements Converter<String, String> {
+    public class StringTrimConverter implements Converter<String, String> {
         @Override
         public String convert(MappingContext<String, String> context) {
             String source = context.getSource();
-            if(context.getSource() == null) {
-                return null;
-            }
+            if(source == null) return null;
+            
             String trimmedString = source.trim();
-            String capitalisedString = trimmedString.substring(0, 1).toUpperCase() + trimmedString.substring(1).toLowerCase();
-            return capitalisedString;
-        }   
-    }  
+            if(trimmedString.isEmpty()) return "";
+
+            // Use context.getMapping() if available (ModelMapper example)
+            if (context.getMapping() != null) {
+                String destinationPropertyName = context.getMapping().getLastDestinationProperty().getName();
+                if ("emailAddress".equals(destinationPropertyName)) {
+                    return trimmedString; // Skip capitalization for emailAddress
+                }
+            }
+            return capitalizeFirstLetter(trimmedString);
+        }
+        
+        private String capitalizeFirstLetter(String input) {
+            return input.length() > 0 
+                ? Character.toUpperCase(input.charAt(0)) + input.substring(1) 
+                : input;
+        }
+    }
+
+
+    // private class StringTrimConverter implements Converter<String, String> {
+    //     @Override
+    //     public String convert(MappingContext<String, String> context) {
+    //         String source = context.getSource();
+    //         if(context.getSource() == null) {
+    //             return null;
+    //         }
+    //         String trimmedString = source.trim();
+    //         return trimmedString.substring(0, 1).toUpperCase() + trimmedString.substring(1).toLowerCase();
+    //     }   
+    // }  
 }
