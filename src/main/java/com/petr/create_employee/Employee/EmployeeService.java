@@ -45,20 +45,6 @@ public class EmployeeService {
             return result;
         }
         Employee foundEmployee = result.get();
-        // if(data.getFirstName() != null) {
-        //     foundEmployee.setFirstName(data.getFirstName().trim());
-        // }
-
-        // if(data.getMiddleName() != null) { 
-        //     foundEmployee.setMiddleName(data.getMiddleName().trim());
-        // }
-
-        // if(data.getLastName() != null) { 
-        //     foundEmployee.setLastName(data.getLastName().trim());
-        // }
-        // if(data.getStatus() != null) { 
-        //     foundEmployee.setStatus(data.getStatus());
-        // }
         mapper.map(data, foundEmployee);
         this.repo.save(foundEmployee);
         return Optional.of(foundEmployee);
