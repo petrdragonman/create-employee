@@ -1,7 +1,5 @@
 package com.petr.create_employee.Employee;
-
 import java.time.LocalDate;
-
 import com.petr.create_employee.common.BaseEntity;
 
 import jakarta.persistence.Column;
