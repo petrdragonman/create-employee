@@ -1,0 +1,23 @@
+.btn {
+  background-color: white;
+  border: 1px solid black;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: 5%;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.primary {
+  border: 1px solid #fb7431;
+}
+
+.danger {
+  border: 1px solid red;
+  color: red;
+}
