@@ -26,7 +26,6 @@ public class ModelMapperConfig {
             String trimmedString = source.trim();
             if(trimmedString.isEmpty()) return "";
 
-            // Use context.getMapping() if available (ModelMapper example)
             if (context.getMapping() != null) {
                 String destinationPropertyName = context.getMapping().getLastDestinationProperty().getName();
                 if ("emailAddress".equals(destinationPropertyName)) {
