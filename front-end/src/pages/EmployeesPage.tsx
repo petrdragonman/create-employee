@@ -8,7 +8,6 @@ import { fetchEmployees, removeEmployee } from "../state/employeeSlice";
 import { useAppDispatch } from "../state/hooks";
 
 const EmployeesPage = () => {
-  // redux
   const employees = useSelector(
     (state: RootState) => state.employees.employees
   );
