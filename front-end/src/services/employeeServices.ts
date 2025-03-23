@@ -22,3 +22,16 @@ export const getAllEmployees = async () => {
   }
   return (await response.json()) as Employee[];
 };
+
+export const deleteEmployee = async (id: number) => {
+  try {
+    const response = await fetch("http://localhost:8080/employees/" + id, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error("failed delete employee");
+    }
+  } catch (error) {
+    console.error("Error deleting employee: ", error);
+  }
+};
