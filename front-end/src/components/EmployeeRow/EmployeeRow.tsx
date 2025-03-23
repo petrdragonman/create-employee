@@ -3,9 +3,14 @@ import classes from "./EmployeeRow.module.scss";
 
 interface EmployeeRowProps {
   employee: Employee;
+  onDelete: (id: number) => void;
 }
 
-const EmployeeRow = ({ employee }: EmployeeRowProps) => {
+const EmployeeRow = ({ employee, onDelete }: EmployeeRowProps) => {
+  const handleDelete = () => {
+    onDelete(employee.id);
+  };
+
   return (
     <main>
       <section className={classes.row}>
@@ -49,6 +54,7 @@ const EmployeeRow = ({ employee }: EmployeeRowProps) => {
               alt="trash bin icon"
               width={"14px"}
               className={classes.item}
+              onClick={handleDelete}
             />
           </article>
         </section>
