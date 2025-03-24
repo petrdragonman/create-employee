@@ -4,24 +4,31 @@ import { capitaliseEachWord } from "./utils";
 import Button from "../Button/Button";
 import classes from "./EmployeeForm.module.scss";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router";
 
 interface EmployeeFormProps {
   onSubmit: (data: EmployeeFormData) => unknown;
 }
 
 const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
     formState: { isSubmitSuccessful, errors },
     reset,
   } = useForm<EmployeeFormData>({ resolver: zodResolver(schema) });
+
   isSubmitSuccessful && reset();
+
+  const handleCancelClick = () => {
+    navigate("/");
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <article className={classes.field}>
-        <label>first name</label>
+        <label>First Name</label>
         <input
           type="text"
           {...register("firstName")}
@@ -34,7 +41,7 @@ const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
         )}
       </article>
       <article className={classes.field}>
-        <label>middle name</label>
+        <label>Middle Name</label>
         <input
           type="text"
           {...register("middleName")}
@@ -47,7 +54,7 @@ const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
         )}
       </article>
       <article className={classes.field}>
-        <label>last name</label>
+        <label>Last Name</label>
         <input
           type="text"
           {...register("lastName")}
@@ -60,7 +67,7 @@ const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
         )}
       </article>
       <article className={classes.field}>
-        <label>email address</label>
+        <label>Email Address</label>
         <input
           type="text"
           {...register("emailAddress")}
@@ -73,7 +80,7 @@ const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
         )}
       </article>
       <article className={classes.field}>
-        <label>mobile</label>
+        <label>Mobile</label>
         <input
           type="text"
           {...register("mobileNumber")}
@@ -86,9 +93,9 @@ const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
         )}
       </article>
       <article className={classes.field}>
-        <label>start date</label>
+        <label>Start Date</label>
         <input
-          type="text"
+          type="date"
           {...register("startDate")}
           className={classes.input}
         />
@@ -99,7 +106,7 @@ const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
         )}
       </article>
       <article className={classes.field}>
-        <label>hours per week</label>
+        <label>Hours per Week</label>
         <input
           type="number"
           {...register("hoursPerWeek")}
@@ -112,7 +119,7 @@ const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
         )}
       </article>
       <article className={classes.field}>
-        <label>employment status</label>
+        <label>Employment Status</label>
         <select {...register("employeeStatus")} className={classes.input}>
           {employeeStatus.map((status) => (
             <option key={status} value={status}>
@@ -127,6 +134,17 @@ const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
         )}
       </article>
       <article className={classes.field}>
+        <label>On Going</label>
+        <input
+          type="checkbox"
+          {...register("onGoing")}
+          className={classes.ongoing_input}
+        />
+        {errors?.onGoing && (
+          <small className={classes.error_text}>{errors.onGoing.message}</small>
+        )}
+      </article>
+      {/* <article className={classes.field}>
         <label>on going</label>
         <input type="text" {...register("onGoing")} className={classes.input} />
         {errors?.onGoing && (
@@ -134,10 +152,17 @@ const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
             {errors?.onGoing?.message}
           </small>
         )}
-      </article>
-      <article>
-        <Button variant={"primary"}>Create New Employee</Button>
-      </article>
+      </article> */}
+      <section className={classes.btn_container}>
+        <article>
+          <Button variant={"primary"} onClick={handleCancelClick}>
+            Cancel
+          </Button>
+        </article>
+        <article>
+          <Button variant={"primary"}>Create New Employee</Button>
+        </article>
+      </section>
     </form>
   );
 };

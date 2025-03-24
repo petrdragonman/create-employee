@@ -3,7 +3,9 @@ import {
   deleteEmployee,
   Employee,
   getAllEmployees,
+  createEmployee,
 } from "../services/employeeServices";
+import { EmployeeFormData } from "../components/EmployeeForm/schema";
 
 interface EmployeeState {
   employees: Employee[];
@@ -21,6 +23,16 @@ export const fetchEmployees = createAsyncThunk(
   "employees/fetchEmployees",
   async () => {
     const response = await getAllEmployees();
+    return response;
+  }
+);
+
+// Async thunk to create employees
+export const createNewEmployee = createAsyncThunk(
+  "employees/createNewEmployee",
+  async (data: EmployeeFormData) => {
+    console.log(data);
+    const response = await createEmployee(data);
     return response;
   }
 );
@@ -51,6 +63,14 @@ const employeeSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message || "Failed to fetch employees";
       })
+      .addCase(createNewEmployee.fulfilled, (state, action: any) => {
+        state.status = "succeeded";
+        state.employees.push(action.payload);
+      })
+      // .addCase(createNewEmployee.rejected, (state, action) => {
+      //   state.status = "failed";
+      //   state.error = action.error.message || "Failed to create employee";
+      // })
       .addCase(removeEmployee.fulfilled, (state, action) => {
         state.employees = state.employees.filter(
           (employee) => employee.id !== action.payload

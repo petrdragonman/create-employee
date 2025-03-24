@@ -6,8 +6,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../state/store";
 import { fetchEmployees, removeEmployee } from "../state/employeeSlice";
 import { useAppDispatch } from "../state/hooks";
+import { useNavigate } from "react-router";
 
 const EmployeesPage = () => {
+  const navigate = useNavigate();
   const employees = useSelector(
     (state: RootState) => state.employees.employees
   );
@@ -21,11 +23,17 @@ const EmployeesPage = () => {
     dispatch(removeEmployee(id));
   };
 
+  const handleClick = () => {
+    navigate("/employees/new");
+  };
+
   return (
     <div className={classes.container}>
       <article className={classes.title}>create employee app</article>
       <section className={classes.btn_create}>
-        <Button variant="primary">Create new employee</Button>
+        <Button variant="primary" onClick={handleClick}>
+          Create new employee
+        </Button>
       </section>
       <EmployeesList employees={employees} onDelete={handleDelete} />
     </div>
