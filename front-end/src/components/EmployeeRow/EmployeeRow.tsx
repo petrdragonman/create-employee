@@ -29,7 +29,7 @@ const EmployeeRow = ({ employee, onDelete }: EmployeeRowProps) => {
           <p className={classes.item}>{employee.emailAddress}</p>
         </article>
         <article className={classes.item_status}>
-          <p className={classes.item}>{employee.status}</p>
+          <p className={classes.item}>{employee.employeeStatus}</p>
         </article>
         <section className={classes.group_icons}>
           {/* <article className={classes.item_icon}>

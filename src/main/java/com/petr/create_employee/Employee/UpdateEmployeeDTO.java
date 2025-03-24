@@ -18,7 +18,7 @@ public class UpdateEmployeeDTO {
     @Pattern(regexp = ".*\\S.*", message = "Last name cannot be empty")
     private String lastName;
 
-    private EmployeeStatus status;
+    private EmployeeStatus employeeStatus;
 
     private String emailAddress;
 
@@ -55,14 +55,6 @@ public class UpdateEmployeeDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public EmployeeStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(EmployeeStatus status) {
-        this.status = status;
     }
 
     public String getEmailAddress() {
@@ -111,6 +103,14 @@ public class UpdateEmployeeDTO {
     @Override
     public String toString() {
         return "UpdateEmployeeDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
-                + ", status=" + status + "]";
+                + ", employeeStatus=" + employeeStatus + "]";
+    }
+
+    public EmployeeStatus getEmployeeStatus() {
+        return employeeStatus;
+    }
+
+    public void setEmployeeStatus(EmployeeStatus employeeStatus) {
+        this.employeeStatus = employeeStatus;
     }
 }

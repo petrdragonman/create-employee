@@ -1,3 +1,5 @@
+import { EmployeeFormData } from "../components/EmployeeForm/schema";
+
 export interface Employee {
   createdAt: string; // ISO date string
   emailAddress: string;
@@ -9,7 +11,7 @@ export interface Employee {
   mobileNumber: string;
   onGoing: boolean;
   startDate: string; // Date in YYYY-MM-DD format
-  status: EmployeeStatus; // Union type for status
+  employeeStatus: EmployeeStatus; // Union type for status
   updatedAt: string; // ISO date string
 }
 
@@ -34,4 +36,18 @@ export const deleteEmployee = async (id: number) => {
   } catch (error) {
     console.error("Error deleting employee: ", error);
   }
+};
+
+export const createEmployee = async (data: EmployeeFormData) => {
+  const response = await fetch("http://localhost:8080/employees", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error("failed to create employee");
+  }
+  return (await response.json()) as Employee;
 };

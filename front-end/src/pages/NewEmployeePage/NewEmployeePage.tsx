@@ -1,10 +1,32 @@
+import { useSelector } from "react-redux";
 import EmployeeForm from "../../components/EmployeeForm/EmployeeForm";
 import { EmployeeFormData } from "../../components/EmployeeForm/schema";
+import { createNewEmployee } from "../../state/employeeSlice";
 import classes from "./NewEmployeePage.module.scss";
+import { useNavigate } from "react-router";
+import { RootState } from "../../state/store";
+import { useAppDispatch } from "../../state/hooks";
 
 const NewEmployeePage = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { status, error } = useSelector((state: RootState) => state.employees);
+
   const onSubmit = (data: EmployeeFormData) => {
-    console.log(data);
+    //console.log(data);
+    // const formattedData = {
+    //   ...data,
+    //   startDate: new Date(data.startDate),
+    // };
+    //console.log(data);
+    dispatch(createNewEmployee(data))
+      .unwrap() // Unwrap the promise to handle success/failure
+      .then(() => {
+        navigate("/"); // Navigate to the employees list after success
+      })
+      .catch((error) => {
+        console.error("Failed to create employee:", error);
+      });
   };
 
   return (
@@ -13,7 +35,8 @@ const NewEmployeePage = () => {
         <article className={classes.title}>
           <p>Create a new employee</p>
         </article>
-
+        {status === "loading" && <p>Creating employee...</p>}
+        {status === "failed" && <p className={classes.error}>{error}</p>}
         <EmployeeForm onSubmit={onSubmit} />
       </section>
     </>
