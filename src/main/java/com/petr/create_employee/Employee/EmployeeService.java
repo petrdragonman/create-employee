@@ -16,7 +16,6 @@ public class EmployeeService {
         this.mapper = mapper;
     }
     
-
     public Employee createEmployee(CreateEmployeeDTO data) {
         Employee newEmployee = mapper.map(data, Employee.class);
         return this.repo.saveAndFlush(newEmployee);

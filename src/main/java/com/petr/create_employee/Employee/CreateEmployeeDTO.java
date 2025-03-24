@@ -2,10 +2,6 @@ package com.petr.create_employee.Employee;
 import java.time.LocalDate;
 
 import com.petr.create_employee.Employee.Employee.EmployeeStatus;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,7 +16,7 @@ public class CreateEmployeeDTO {
     private String lastName;
 
     @NotNull
-    private EmployeeStatus status;
+    private EmployeeStatus employeeStatus;
 
     @NotBlank
     private String emailAddress;
@@ -50,10 +46,6 @@ public class CreateEmployeeDTO {
         return lastName;
     }
 
-    public EmployeeStatus getStatus() {
-        return status;
-    }
-
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -77,8 +69,12 @@ public class CreateEmployeeDTO {
     @Override
     public String toString() {
         return "CreateEmployeeDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
-                + ", status=" + status + ", emailAddress=" + emailAddress + ", mobileNumber=" + mobileNumber
+                + ", employeeStatus=" + employeeStatus + ", emailAddress=" + emailAddress + ", mobileNumber=" + mobileNumber
                 + ", startDate=" + startDate + ", onGoing=" + onGoing + ", hoursPerWeek=" + hoursPerWeek + "]";
+    }
+
+    public EmployeeStatus getEmployeeStatus() {
+        return employeeStatus;
     }
     
 }

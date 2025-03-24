@@ -1,7 +1,5 @@
 package com.petr.create_employee.Employee;
-
 import java.time.LocalDate;
-
 import com.petr.create_employee.common.BaseEntity;
 
 import jakarta.persistence.Column;
@@ -9,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name="employees")
@@ -36,15 +35,17 @@ public class Employee extends BaseEntity {
     private String mobileNumber;
 
     @Enumerated(EnumType.STRING)
-    private EmployeeStatus status;
+    //@Column(nullable = false)
+    private EmployeeStatus employeeStatus;
 
-    @Column()
+    @Column(nullable = false)
     private LocalDate startDate;
 
-    @Column()
+    @Column(nullable = false)
     private Boolean onGoing;
 
-    @Column()
+    @Column(nullable = false)
+    @Min(value = 15, message = "Hours per week must be at least 15")
     private Integer hoursPerWeek;
 
     public String getFirstName() {
@@ -87,14 +88,7 @@ public class Employee extends BaseEntity {
         this.mobileNumber = mobileNumber;
     }
 
-    public EmployeeStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(EmployeeStatus status) {
-        this.status = status;
-    }
-
+    
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -123,23 +117,30 @@ public class Employee extends BaseEntity {
     }
 
     public Employee(String firstName, String middleName, String lastName, String emailAddress, String mobileNumber,
-            EmployeeStatus status, LocalDate startDate, Boolean onGoing, Integer hoursPerWeek) {
+            EmployeeStatus employeeStatus, LocalDate startDate, Boolean onGoing, Integer hoursPerWeek) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.mobileNumber = mobileNumber;
-        this.status = status;
+        this.employeeStatus = employeeStatus;
         this.startDate = startDate;
         this.onGoing = onGoing;
         this.hoursPerWeek = hoursPerWeek;
     }
 
-    // @Column()
-    // private String residentialAddress;
+    public EmployeeStatus getEmployeeStatus() {
+        return employeeStatus;
+    }
+
+    public void setEmployeeStatus(EmployeeStatus employeeStatus) {
+        this.employeeStatus = employeeStatus;
+    }
+
+
 
     // @Column()
-    // private Date startDate;
+    // private String residentialAddress;
 
     // @Column()
     // private Date finishDate;
