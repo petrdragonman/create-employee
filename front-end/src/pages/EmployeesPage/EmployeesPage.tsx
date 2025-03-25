@@ -1,11 +1,11 @@
 import classes from "./EmployeesPage.module.scss";
 import { useEffect } from "react";
-import EmployeesList from "../components/EmployeesList";
-import Button from "../components/Button/Button";
+import EmployeesList from "../../components/EmployeesList";
+import Button from "../../components/Button/Button";
 import { useSelector } from "react-redux";
-import { RootState } from "../state/store";
-import { fetchEmployees, removeEmployee } from "../state/employeeSlice";
-import { useAppDispatch } from "../state/hooks";
+import { RootState } from "../../state/store";
+import { fetchEmployees, removeEmployee } from "../../state/employeeSlice";
+import { useAppDispatch } from "../../state/hooks";
 import { useNavigate } from "react-router";
 
 const EmployeesPage = () => {
@@ -27,6 +27,10 @@ const EmployeesPage = () => {
     navigate("/employees/new");
   };
 
+  const handleUpdate = (id: number) => {
+    navigate(`/employees/${id}`);
+  };
+
   return (
     <div className={classes.container}>
       <article className={classes.title}>create employee app</article>
@@ -35,7 +39,11 @@ const EmployeesPage = () => {
           Create new employee
         </Button>
       </section>
-      <EmployeesList employees={employees} onDelete={handleDelete} />
+      <EmployeesList
+        employees={employees}
+        onDelete={handleDelete}
+        onUpdate={handleUpdate}
+      />
     </div>
   );
 };

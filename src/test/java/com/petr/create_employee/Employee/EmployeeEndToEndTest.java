@@ -41,7 +41,7 @@ public class EmployeeEndToEndTest {
         employee1.setLastName("Doe");
         employee1.setEmailAddress("john.doe@example.com");
         employee1.setMobileNumber("+1234567890");
-        employee1.setStatus(Employee.EmployeeStatus.PERMANENT);
+        employee1.setEmployeeStatus(Employee.EmployeeStatus.PERMANENT);
         employee1.setStartDate(LocalDate.of(2023, 1, 15));
         employee1.setOnGoing(true);
         employee1.setHoursPerWeek(40);
@@ -55,7 +55,7 @@ public class EmployeeEndToEndTest {
         employee2.setLastName("Smith");
         employee2.setEmailAddress("jane.smith@example.com");
         employee2.setMobileNumber("0432 459 496");
-        employee2.setStatus(Employee.EmployeeStatus.CONTRACT);
+        employee2.setEmployeeStatus(Employee.EmployeeStatus.CONTRACT);
         employee2.setStartDate(LocalDate.of(2023, 3, 10));
         employee2.setOnGoing(false);
         employee2.setHoursPerWeek(20);
