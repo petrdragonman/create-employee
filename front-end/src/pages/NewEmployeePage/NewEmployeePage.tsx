@@ -13,16 +13,10 @@ const NewEmployeePage = () => {
   const { status, error } = useSelector((state: RootState) => state.employees);
 
   const onSubmit = (data: EmployeeFormData) => {
-    //console.log(data);
-    // const formattedData = {
-    //   ...data,
-    //   startDate: new Date(data.startDate),
-    // };
-    //console.log(data);
     dispatch(createNewEmployee(data))
-      .unwrap() // Unwrap the promise to handle success/failure
+      .unwrap()
       .then(() => {
-        navigate("/"); // Navigate to the employees list after success
+        navigate("/employees");
       })
       .catch((error) => {
         console.error("Failed to create employee:", error);

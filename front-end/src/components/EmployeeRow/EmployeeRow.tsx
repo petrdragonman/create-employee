@@ -4,16 +4,21 @@ import classes from "./EmployeeRow.module.scss";
 interface EmployeeRowProps {
   employee: Employee;
   onDelete: (id: number) => void;
+  onUpdate: (id: number) => void;
 }
 
-const EmployeeRow = ({ employee, onDelete }: EmployeeRowProps) => {
-  const handleDelete = () => {
+const EmployeeRow = ({ employee, onDelete, onUpdate }: EmployeeRowProps) => {
+  const handleDelete = (e: { stopPropagation: () => void }) => {
+    e.stopPropagation();
     onDelete(employee.id);
+  };
+  const handleUpdate = () => {
+    onUpdate(employee.id);
   };
 
   return (
     <main>
-      <section className={classes.row}>
+      <section className={classes.row} onClick={handleUpdate}>
         <section className={classes.item_id}>
           <p className={classes.item}>{employee.id}</p>
         </section>
@@ -34,20 +39,12 @@ const EmployeeRow = ({ employee, onDelete }: EmployeeRowProps) => {
         <section className={classes.group_icons}>
           {/* <article className={classes.item_icon}>
             <img
-              src="./info.svg"
-              alt="trash bin icon"
-              width={"8px"}
-              className={classes.item}
-            />
-          </article> */}
-          <article className={classes.item_icon}>
-            <img
               src="./pen.svg"
-              alt="trash bin icon"
+              alt="edit icon"
               width={"18px"}
               className={classes.item}
             />
-          </article>
+          </article> */}
           <article className={classes.item_icon}>
             <img
               src="./bin-red.svg"
