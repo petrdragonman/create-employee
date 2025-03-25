@@ -37,14 +37,6 @@ const EmployeeRow = ({ employee, onDelete, onUpdate }: EmployeeRowProps) => {
           <p className={classes.item}>{employee.employeeStatus}</p>
         </article>
         <section className={classes.group_icons}>
-          {/* <article className={classes.item_icon}>
-            <img
-              src="./pen.svg"
-              alt="edit icon"
-              width={"18px"}
-              className={classes.item}
-            />
-          </article> */}
           <article className={classes.item_icon}>
             <img
               src="./bin-red.svg"

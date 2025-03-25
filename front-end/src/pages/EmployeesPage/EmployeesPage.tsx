@@ -1,5 +1,5 @@
 import classes from "./EmployeesPage.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import EmployeesList from "../../components/EmployeesList";
 import Button from "../../components/Button/Button";
 import { useSelector } from "react-redux";
@@ -7,7 +7,6 @@ import { RootState } from "../../state/store";
 import { fetchEmployees, removeEmployee } from "../../state/employeeSlice";
 import { useAppDispatch } from "../../state/hooks";
 import { useNavigate } from "react-router";
-import Toast, { ToastType } from "../../components/Toast/Toast";
 
 const EmployeesPage = () => {
   const navigate = useNavigate();
@@ -30,14 +29,6 @@ const EmployeesPage = () => {
 
   const handleUpdate = (id: number) => {
     navigate(`/employees/${id}`);
-  };
-
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-  const [toastType, setToastType] = useState<ToastType>("success");
-
-  const showToast = (type: ToastType, message: string) => {
-    setToastType(type);
-    setToastMessage(message);
   };
 
   return (
