@@ -43,24 +43,6 @@ const EmployeesPage = () => {
   return (
     <div className={classes.container}>
       <article className={classes.title}>create employee app</article>
-
-      <div>
-        <button onClick={() => showToast("success", "Success! Saved.")}>
-          Show Success
-        </button>
-        <button onClick={() => showToast("error", "Error! Failed.")}>
-          Show Error
-        </button>
-
-        <Toast
-          type={toastType}
-          message={toastMessage}
-          onClose={() => setToastMessage(null)}
-          //autoClose={true}
-          //autoCloseDuration={2000}
-        />
-      </div>
-
       <section className={classes.btn_create}>
         <Button variant="primary" onClick={handleClick}>
           Create new employee
