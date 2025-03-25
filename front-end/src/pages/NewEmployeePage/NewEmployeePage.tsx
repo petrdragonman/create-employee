@@ -29,8 +29,12 @@ const NewEmployeePage = () => {
         <article className={classes.title}>
           <p>Create a new employee</p>
         </article>
-        {status === "loading" && <p>Creating employee...</p>}
-        {status === "failed" && <p className={classes.error}>{error}</p>}
+        <section className={classes.messages}>
+          {status === "loading" && (
+            <p className={classes.text}>Creating employee...</p>
+          )}
+          {status === "failed" && <p className={classes.error}>{error}</p>}
+        </section>
         <EmployeeForm onSubmit={onSubmit} />
       </section>
     </>
