@@ -60,7 +60,9 @@ const EditEmployeePage = () => {
     <>
       <section className={classes.container}>
         <article className={classes.title}>
-          <p>Update an employee: {currentEmployee.id}</p>
+          <p>
+            {currentEmployee.firstName} {currentEmployee.lastName}
+          </p>
         </article>
         <section className={classes.messages}>
           {status === "loading" && <p>Updating employee...</p>}
