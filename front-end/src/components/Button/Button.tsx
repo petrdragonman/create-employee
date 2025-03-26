@@ -1,7 +1,7 @@
 import classes from "./Button.module.scss";
 
 interface ButtonPartialProps {
-  variant: "primary" | "success" | "danger";
+  variant: "primary" | "secondary" | "success" | "danger";
 }
 
 type ButtonProps = ButtonPartialProps &
