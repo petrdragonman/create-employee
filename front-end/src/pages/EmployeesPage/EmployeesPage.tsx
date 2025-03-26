@@ -1,15 +1,13 @@
 import classes from "./EmployeesPage.module.scss";
 import { useEffect, useState } from "react";
 import EmployeesList from "../../components/EmployeesList";
-import Button from "../../components/Button/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import { fetchEmployees, removeEmployee } from "../../state/employeeSlice";
 import { useAppDispatch } from "../../state/hooks";
 import { useNavigate } from "react-router";
 import Modal from "../../components/Modal/Modal";
-import { FiTrash2, FiPlus, FiSave } from "react-icons/fi";
-import NewButton from "../../components/NewButton/NewButton";
+import Button from "../../components/Button/Button";
 
 const EmployeesPage = () => {
   const navigate = useNavigate();
@@ -64,10 +62,10 @@ const EmployeesPage = () => {
         cancelText="Cancel"
         confirmVariant="danger"
       />
-      <article className={classes.title}>create employee app</article>
+      <article className={classes.title}>Create Employee App</article>
       <section className={classes.btn_create}>
         <Button variant="primary" onClick={handleCreateClick}>
-          Create new employee
+          Create Employee
         </Button>
       </section>
       <EmployeesList

@@ -145,11 +145,11 @@ const EmployeeForm = ({
         )}
       </article>
       <article className={classes.field}>
-        <label>On Going</label>
+        <label className={classes.custom_checkbox}>On Going</label>
         <input
           type="checkbox"
           {...register("onGoing")}
-          className={classes.ongoing_input}
+          className={classes.checkmark}
         />
         {errors?.onGoing && (
           <small className={classes.error_text}>{errors.onGoing.message}</small>
@@ -157,7 +157,7 @@ const EmployeeForm = ({
       </article>
       <section className={classes.btn_container}>
         <article>
-          <Button variant={"primary"} onClick={handleCancelClick}>
+          <Button variant={"secondary"} onClick={handleCancelClick}>
             Cancel
           </Button>
         </article>

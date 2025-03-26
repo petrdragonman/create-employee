@@ -22,8 +22,10 @@
   font-size: medium;
   width: 300px;
 }
-.ongoing_input {
-  padding: 0.2em 0.4em;
+.checkmark {
+  //padding: 0.4em 0.8em;
+  width: 14px;
+  height: 14px;
   font-size: medium;
   transform: scale(1.6);
   display: flex;
