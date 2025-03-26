@@ -4,9 +4,14 @@ import EmployeeRow from "./EmployeeRow/EmployeeRow";
 interface EmployeesListProps {
   employees: Employee[];
   onDelete: (id: number) => void;
+  onUpdate: (id: number) => void;
 }
 
-const EmployeesList = ({ employees, onDelete }: EmployeesListProps) => {
+const EmployeesList = ({
+  employees,
+  onDelete,
+  onUpdate,
+}: EmployeesListProps) => {
   if (employees.length === 0) {
     return null;
   }
@@ -17,6 +22,7 @@ const EmployeesList = ({ employees, onDelete }: EmployeesListProps) => {
           key={employee.id}
           employee={employee}
           onDelete={onDelete}
+          onUpdate={onUpdate}
         />
       ))}
     </>

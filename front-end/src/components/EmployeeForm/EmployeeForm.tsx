@@ -8,21 +8,32 @@ import { useNavigate } from "react-router";
 
 interface EmployeeFormProps {
   onSubmit: (data: EmployeeFormData) => unknown;
+  defaultValues?: EmployeeFormData;
+  mode?: "create" | "update";
 }
 
-const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
+const EmployeeForm = ({
+  onSubmit,
+  defaultValues,
+  mode = "create",
+}: EmployeeFormProps) => {
   const navigate = useNavigate();
   const {
     handleSubmit,
     register,
     formState: { isSubmitSuccessful, errors },
     reset,
-  } = useForm<EmployeeFormData>({ resolver: zodResolver(schema) });
+  } = useForm<EmployeeFormData>({
+    resolver: zodResolver(schema),
+    defaultValues,
+  });
 
   isSubmitSuccessful && reset();
 
   const handleCancelClick = () => {
-    navigate("/");
+    navigate("/employees");
+    //or
+    // navigate(-1);
   };
 
   return (
@@ -144,15 +155,6 @@ const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
           <small className={classes.error_text}>{errors.onGoing.message}</small>
         )}
       </article>
-      {/* <article className={classes.field}>
-        <label>on going</label>
-        <input type="text" {...register("onGoing")} className={classes.input} />
-        {errors?.onGoing && (
-          <small className={classes.error_text}>
-            {errors?.onGoing?.message}
-          </small>
-        )}
-      </article> */}
       <section className={classes.btn_container}>
         <article>
           <Button variant={"primary"} onClick={handleCancelClick}>
@@ -160,7 +162,9 @@ const EmployeeForm = ({ onSubmit }: EmployeeFormProps) => {
           </Button>
         </article>
         <article>
-          <Button variant={"primary"}>Create New Employee</Button>
+          <Button variant={"primary"}>
+            {mode === "update" ? "Update Employee" : "Create New Employee"}
+          </Button>
         </article>
       </section>
     </form>

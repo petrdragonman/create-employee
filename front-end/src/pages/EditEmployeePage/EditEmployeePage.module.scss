@@ -20,18 +20,6 @@
   flex-direction: column;
   align-self: center;
   color: orangered;
-  width: 300px;
-}
-
-.text {
-  display: flex;
-  align-self: center;
-  padding: 0px 20px;
-}
-
-.error {
-  color: orangered;
-  display: flex;
-  align-self: center;
-  padding: 0px 20px;
+  border: 1px solid orangered;
+  border-radius: 5px;
 }

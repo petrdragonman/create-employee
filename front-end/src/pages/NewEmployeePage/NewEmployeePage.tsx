@@ -13,16 +13,10 @@ const NewEmployeePage = () => {
   const { status, error } = useSelector((state: RootState) => state.employees);
 
   const onSubmit = (data: EmployeeFormData) => {
-    //console.log(data);
-    // const formattedData = {
-    //   ...data,
-    //   startDate: new Date(data.startDate),
-    // };
-    //console.log(data);
     dispatch(createNewEmployee(data))
-      .unwrap() // Unwrap the promise to handle success/failure
+      .unwrap()
       .then(() => {
-        navigate("/"); // Navigate to the employees list after success
+        navigate("/employees");
       })
       .catch((error) => {
         console.error("Failed to create employee:", error);
@@ -35,8 +29,12 @@ const NewEmployeePage = () => {
         <article className={classes.title}>
           <p>Create a new employee</p>
         </article>
-        {status === "loading" && <p>Creating employee...</p>}
-        {status === "failed" && <p className={classes.error}>{error}</p>}
+        <section className={classes.messages}>
+          {status === "loading" && (
+            <p className={classes.text}>Creating employee...</p>
+          )}
+          {status === "failed" && <p className={classes.error}>{error}</p>}
+        </section>
         <EmployeeForm onSubmit={onSubmit} />
       </section>
     </>

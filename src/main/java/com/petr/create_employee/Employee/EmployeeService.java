@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.petr.create_employee.common.exceptions.DuplicateEmailException;
 @Service
 public class EmployeeService {
 
@@ -14,21 +15,20 @@ public class EmployeeService {
     public EmployeeService(EmployeeRepository repo, ModelMapper mapper) { 
         this.repo = repo;
         this.mapper = mapper;
-    }
-    
-    public Employee createEmployee(CreateEmployeeDTO data) {
+    } 
+    public Employee createEmployee(CreateEmployeeDTO data) throws DuplicateEmailException {
+        if(repo.existsByEmailAddress(data.getEmailAddress())) {
+            throw new DuplicateEmailException("Email address already exists: " + data.getEmailAddress());
+        }
         Employee newEmployee = mapper.map(data, Employee.class);
         return this.repo.saveAndFlush(newEmployee);
     }
-
     public List<Employee> getAll() {
         return this.repo.findAll();
     }
-
     public Optional<Employee> getById(Long id) {
         return this.repo.findById(id);
     }
-
     public boolean deleteById(Long id) {
         Optional<Employee> result = this.getById(id);
         if (result.isEmpty()) {
@@ -37,7 +37,6 @@ public class EmployeeService {
         this.repo.delete(result.get());
         return true;
     }
-
     public Optional<Employee> updateById(Long id, UpdateEmployeeDTO data) {
         Optional<Employee> result = this.getById(id);
         if(result.isEmpty()) {

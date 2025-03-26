@@ -3,6 +3,7 @@ package com.petr.create_employee.config;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import org.springframework.boot.CommandLineRunner;
@@ -16,9 +17,10 @@ import com.petr.create_employee.Employee.Employee.EmployeeStatus;
 @Component
 @Profile("dev")
 public class DataSeeder implements CommandLineRunner {
-
+    private final Locale australia = new Locale.Builder().setLanguage("en").setRegion("AU").build();
     private final EmployeeRepository employeeRepo;
-    private final Faker faker = new Faker();
+    private final Faker faker = new Faker(australia);
+    //Faker faker = new Faker(new Locale("en-AU")); // Australian locale
 
     public DataSeeder(EmployeeRepository employeeRepo) {
         this.employeeRepo = employeeRepo;
@@ -31,6 +33,8 @@ public class DataSeeder implements CommandLineRunner {
             Set<String> numbers = new HashSet<String>();
 
 
+            System.out.println("Address: " + faker.address().fullAddress());
+
 
             for(int i = 0; i < 20; i++) { 
                 String firstName = faker.name().firstName();
@@ -38,7 +42,7 @@ public class DataSeeder implements CommandLineRunner {
                 String lastName = faker.name().lastName();
                 LocalDate startDate = LocalDate.ofInstant(faker.date().birthday().toInstant(), ZoneId.systemDefault());
                 Boolean onGoing = faker.random().nextBoolean();
-                Integer hoursPerWeek = faker.number().numberBetween(10, 40);
+                Integer hoursPerWeek = faker.number().numberBetween(15, 40);
                 EmployeeStatus status = faker.options().option(Employee.EmployeeStatus.class);
                 String emailAddress = faker.internet().emailAddress();
                 String mobile = faker.phoneNumber().cellPhone();
