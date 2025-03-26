@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 
 @Entity
@@ -35,7 +36,7 @@ public class Employee extends BaseEntity {
     private String mobileNumber;
 
     @Enumerated(EnumType.STRING)
-    //@Column(nullable = false)
+    @Column(nullable = false)
     private EmployeeStatus employeeStatus;
 
     @Column(nullable = false)
@@ -46,6 +47,7 @@ public class Employee extends BaseEntity {
 
     @Column(nullable = false)
     @Min(value = 15, message = "Hours per week must be at least 15")
+    @Max(value = 40, message = "Hours per week can not be more than 40")
     private Integer hoursPerWeek;
 
     public String getFirstName() {
@@ -136,21 +138,4 @@ public class Employee extends BaseEntity {
     public void setEmployeeStatus(EmployeeStatus employeeStatus) {
         this.employeeStatus = employeeStatus;
     }
-
-
-
-    // @Column()
-    // private String residentialAddress;
-
-    // @Column()
-    // private Date finishDate;
-
-    // employee status -> permanent, contract
-    // start date => day, month, year
-    // finish date => day, month, year
-    // onGoing => true, false
-    // full-time, part-time
-    
-
-    
 }
