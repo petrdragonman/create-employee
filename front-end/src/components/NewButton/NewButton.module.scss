@@ -1,27 +1,3 @@
-// .btn {
-//   background-color: white;
-//   border: 1px solid black;
-//   padding: 8px 12px;
-//   text-align: center;
-//   text-decoration: none;
-//   font-size: 1.2em;
-//   font-weight: 600;
-//   border-radius: 5%;
-
-//   &:hover {
-//     transform: scale(1.05);
-//   }
-// }
-
-// .primary {
-//   border: 1px solid #fb7431;
-// }
-
-// .danger {
-//   border: 1px solid red;
-//   color: red;
-// }
-
 // Variables
 $btn-border-radius: 4px;
 $btn-transition: all 0.2s ease;
@@ -33,7 +9,6 @@ $btn-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 16px;
   border: none;
   border-radius: $btn-border-radius;
   font-weight: 500;
