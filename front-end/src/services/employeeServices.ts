@@ -46,6 +46,7 @@ export const deleteEmployee = async (id: number) => {
 };
 
 export const createEmployee = async (data: EmployeeFormData) => {
+  //try {
   const response = await fetch("http://localhost:8080/employees", {
     method: "POST",
     headers: {
@@ -53,9 +54,16 @@ export const createEmployee = async (data: EmployeeFormData) => {
     },
     body: JSON.stringify(data),
   });
+  //const responseData = await response.json();
+
   if (!response.ok) {
-    throw new Error("failed to create employee");
+    //throw new Error("Failed to create employee.");
+    if (response.status === 409) {
+      throw new Error("Email already exists.");
+    }
+    throw new Error("Failed to create employee.");
   }
+
   return (await response.json()) as Employee;
 };
 

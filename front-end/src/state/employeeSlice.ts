@@ -42,7 +42,7 @@ export const fetchEmployeeById = createAsyncThunk(
   }
 );
 
-// Async thunk to create employee
+//Async thunk to create employee
 export const createNewEmployee = createAsyncThunk(
   "employees/createNewEmployee",
   async (data: EmployeeFormData) => {
@@ -109,6 +109,7 @@ const employeeSlice = createSlice({
       // Create cases
       .addCase(createNewEmployee.pending, (state) => {
         state.status = "loading";
+        state.error = null;
       })
       .addCase(
         createNewEmployee.fulfilled,
@@ -119,7 +120,11 @@ const employeeSlice = createSlice({
       )
       .addCase(createNewEmployee.rejected, (state, action) => {
         state.status = "failed";
-        state.error = (action.payload as string) || "Failed to create employee";
+        //state.error = (action.payload as string) || "Failed to create employee";
+        state.error =
+          action.payload === "EMAIL_CONFLICT"
+            ? "This email is already in use. Please use a different email address."
+            : "Failed to create employee";
       })
 
       // Update cases
