@@ -1,5 +1,4 @@
-package com.petr.create_employee.Employee.validation;
-
+package com.petr.create_employee.Employee.validation.HoursPerWeek;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -11,9 +10,9 @@ import jakarta.validation.Payload;
 
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UniqueMobileValidator.class)
-public @interface UniqueMobileValid {
-    String message() default "The mobile number you have entered already exists";
+@Constraint(validatedBy = HoursPerWeekValidator.class)
+public @interface HoursPerWeekValid {
+    String message() default "Invalid Hours per week for Employee Status.";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

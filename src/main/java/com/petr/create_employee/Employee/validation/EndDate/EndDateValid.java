@@ -1,4 +1,4 @@
-package com.petr.create_employee.Employee.validation;
+package com.petr.create_employee.Employee.validation.EndDate;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

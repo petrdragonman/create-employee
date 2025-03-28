@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.petr.create_employee.common.exceptions.NotFoundException;
 import com.petr.create_employee.common.exceptions.ServiceValidationException;
 import com.petr.create_employee.common.exceptions.DuplicateEmailException;
+import com.petr.create_employee.common.exceptions.DuplicateMobileException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -23,6 +24,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DuplicateEmailException.class)
     public ResponseEntity<String> handleDuplicateEmailException(DuplicateEmailException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(DuplicateMobileException.class)
+    public ResponseEntity<String> handleDuplicateMobileException(DuplicateMobileException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 

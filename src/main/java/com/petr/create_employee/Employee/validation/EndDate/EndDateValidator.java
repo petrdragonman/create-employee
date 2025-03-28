@@ -1,8 +1,5 @@
-package com.petr.create_employee.Employee.validation;
+package com.petr.create_employee.Employee.validation.EndDate;
 import java.time.LocalDate;
-
-import com.petr.create_employee.Employee.CreateEmployeeDTO;
-import com.petr.create_employee.Employee.Employee;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
