@@ -41,8 +41,8 @@ public class CreateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
 
     private LocalDate endDate;
 
-    @NotNull
-    private Boolean onGoing;
+    // @NotNull
+    // private Boolean onGoing;
 
     @NotNull
     @Min(value = 1, message = "Hours per week must be at least 1")
@@ -73,9 +73,9 @@ public class CreateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
         return startDate;
     }
 
-    public Boolean getOnGoing() {
-        return onGoing;
-    }
+    // public Boolean getOnGoing() {
+    //     return onGoing;
+    // }
 
     public Integer getHoursPerWeek() {
         return hoursPerWeek;
@@ -88,7 +88,7 @@ public class CreateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
         return "CreateEmployeeDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
                 + ", employeeStatus=" + employeeStatus + ", emailAddress=" + emailAddress + ", mobileNumber="
                 + mobileNumber + ", address=" + address + ", startDate=" + startDate + ", endDate=" + endDate
-                + ", onGoing=" + onGoing + ", hoursPerWeek=" + hoursPerWeek + "]";
+                + ", hoursPerWeek=" + hoursPerWeek + "]";
     }
 
     public EmployeeStatus getEmployeeStatus() {

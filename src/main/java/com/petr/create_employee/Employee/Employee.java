@@ -53,20 +53,20 @@ public class Employee extends BaseEntity {
     @Column(nullable = true)
     private LocalDate endDate;
 
-    @Column(nullable = false)
-    private Boolean onGoing;
+    // @Column(nullable = false)
+    // private Boolean onGoing;
 
     @Column(nullable = false)
     @Min(value = 1, message = "Hours per week must be at least 1")
     @Max(value = 40, message = "Hours per week can not be more than 40")
     private Integer hoursPerWeek;
 
-    public boolean isOnGoing() {
-        if(startDate != null && endDate == null) {
-            return true;
-        }
-        return false;
-    }
+    // public boolean isOnGoing() {
+    //     if(startDate != null && endDate == null) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     public String getFirstName() {
         return firstName;
@@ -116,13 +116,13 @@ public class Employee extends BaseEntity {
         this.startDate = startDate;
     }
 
-    public Boolean getOnGoing() {
-        return onGoing;
-    }
+    // public Boolean getOnGoing() {
+    //     return onGoing;
+    // }
 
-    public void setOnGoing(Boolean onGoing) {
-        this.onGoing = onGoing;
-    }
+    // public void setOnGoing(Boolean onGoing) {
+    //     this.onGoing = onGoing;
+    // }
 
     public Integer getHoursPerWeek() {
         return hoursPerWeek;
@@ -157,7 +157,7 @@ public class Employee extends BaseEntity {
     }
 
     public Employee(String firstName, String middleName, String lastName, String emailAddress, String mobileNumber,
-            String address, EmployeeStatus employeeStatus, LocalDate startDate, LocalDate endDate, Boolean onGoing,
+            String address, EmployeeStatus employeeStatus, LocalDate startDate, LocalDate endDate,
             @Min(value = 1, message = "Hours per week must be at least 1") @Max(value = 40, message = "Hours per week can not be more than 40") Integer hoursPerWeek) {
         this.firstName = firstName;
         this.middleName = middleName;
@@ -168,7 +168,6 @@ public class Employee extends BaseEntity {
         this.employeeStatus = employeeStatus;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.onGoing = onGoing;
         this.hoursPerWeek = hoursPerWeek;
     }
     

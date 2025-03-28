@@ -43,9 +43,9 @@ public class DataSeeder implements CommandLineRunner {
                 String middletName = faker.name().firstName();
                 String lastName = faker.name().lastName();
                 LocalDate startDate = LocalDate.ofInstant(faker.date().birthday().toInstant(), ZoneId.systemDefault());
-                Boolean onGoing = faker.random().nextBoolean();
+                Integer num = faker.number().randomDigit();
                 LocalDate endDate = null;
-                if(!onGoing) {
+                if(num > 5) {
                     Date startDateAsDate = Date.from(
                         startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
                     );
@@ -61,7 +61,7 @@ public class DataSeeder implements CommandLineRunner {
                     continue;
                 }
                 
-                Employee fakeEmployee = new Employee(firstName, middletName, lastName, emailAddress, mobile, address, status, startDate, endDate, onGoing, hoursPerWeek);
+                Employee fakeEmployee = new Employee(firstName, middletName, lastName, emailAddress, mobile, address, status, startDate, endDate, hoursPerWeek);
                 this.employeeRepo.saveAndFlush(fakeEmployee);
             }
         }
