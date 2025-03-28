@@ -1,14 +1,16 @@
 package com.petr.create_employee.Employee;
 
 import java.time.LocalDate;
-
 import com.petr.create_employee.Employee.Employee.EmployeeStatus;
-
-import jakarta.validation.constraints.Min;
+import com.petr.create_employee.Employee.validation.DateRangeContainer;
+import com.petr.create_employee.Employee.validation.EndDateValid;
 
 import jakarta.validation.constraints.Pattern;
 
-public class UpdateEmployeeDTO {
+
+
+@EndDateValid
+public class UpdateEmployeeDTO implements DateRangeContainer{
     @Pattern(regexp = ".*\\S.*", message = "First name cannot be empty")
     private String firstName;
 
@@ -24,11 +26,14 @@ public class UpdateEmployeeDTO {
 
     private String mobileNumber;
 
+    private String address;
+
     private LocalDate startDate;
+
+    private LocalDate endDate;
 
     private Boolean onGoing;
 
-    @Min(0)
     private Integer hoursPerWeek;
 
     
@@ -100,12 +105,6 @@ public class UpdateEmployeeDTO {
     public UpdateEmployeeDTO() {
     }
 
-    @Override
-    public String toString() {
-        return "UpdateEmployeeDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
-                + ", employeeStatus=" + employeeStatus + "]";
-    }
-
     public EmployeeStatus getEmployeeStatus() {
         return employeeStatus;
     }
@@ -113,4 +112,30 @@ public class UpdateEmployeeDTO {
     public void setEmployeeStatus(EmployeeStatus employeeStatus) {
         this.employeeStatus = employeeStatus;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "UpdateEmployeeDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
+                + ", employeeStatus=" + employeeStatus + ", emailAddress=" + emailAddress + ", mobileNumber="
+                + mobileNumber + ", address=" + address + ", startDate=" + startDate + ", endDate=" + endDate
+                + ", onGoing=" + onGoing + ", hoursPerWeek=" + hoursPerWeek + "]";
+    }
+
+
 }

@@ -1,7 +1,7 @@
 package com.petr.create_employee.Employee;
 import java.time.LocalDate;
-import com.petr.create_employee.common.BaseEntity;
 
+import com.petr.create_employee.common.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,13 +9,16 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 @Table(name="employees")
+//@EndDateValid // custom validation annotation
 public class Employee extends BaseEntity {
 
     public enum EmployeeStatus {
-        PERMANENT,
+        PERMANENT_FULL_TIME,
+        PERMANENT_PART_TIME,
         CONTRACT,
         CASUAL,
     }
@@ -30,25 +33,40 @@ public class Employee extends BaseEntity {
     private String lastName;
 
     @Column(unique = true)
+    //@Email
     private String emailAddress;
 
     @Column(unique = true)
     private String mobileNumber;
+
+    @Column(nullable = false)
+    private String address;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EmployeeStatus employeeStatus;
 
     @Column(nullable = false)
+    @PastOrPresent
     private LocalDate startDate;
+
+    @Column(nullable = true)
+    private LocalDate endDate;
 
     @Column(nullable = false)
     private Boolean onGoing;
 
     @Column(nullable = false)
-    @Min(value = 15, message = "Hours per week must be at least 15")
+    @Min(value = 1, message = "Hours per week must be at least 1")
     @Max(value = 40, message = "Hours per week can not be more than 40")
     private Integer hoursPerWeek;
+
+    public boolean isOnGoing() {
+        if(startDate != null && endDate == null) {
+            return true;
+        }
+        return false;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -90,7 +108,6 @@ public class Employee extends BaseEntity {
         this.mobileNumber = mobileNumber;
     }
 
-    
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -115,20 +132,12 @@ public class Employee extends BaseEntity {
         this.hoursPerWeek = hoursPerWeek;
     }
 
-    public Employee() {
+    public String getAddress() {
+        return address;
     }
 
-    public Employee(String firstName, String middleName, String lastName, String emailAddress, String mobileNumber,
-            EmployeeStatus employeeStatus, LocalDate startDate, Boolean onGoing, Integer hoursPerWeek) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.emailAddress = emailAddress;
-        this.mobileNumber = mobileNumber;
-        this.employeeStatus = employeeStatus;
-        this.startDate = startDate;
-        this.onGoing = onGoing;
-        this.hoursPerWeek = hoursPerWeek;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public EmployeeStatus getEmployeeStatus() {
@@ -138,4 +147,32 @@ public class Employee extends BaseEntity {
     public void setEmployeeStatus(EmployeeStatus employeeStatus) {
         this.employeeStatus = employeeStatus;
     }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public Employee(String firstName, String middleName, String lastName, String emailAddress, String mobileNumber,
+            String address, EmployeeStatus employeeStatus, LocalDate startDate, LocalDate endDate, Boolean onGoing,
+            @Min(value = 1, message = "Hours per week must be at least 1") @Max(value = 40, message = "Hours per week can not be more than 40") Integer hoursPerWeek) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.mobileNumber = mobileNumber;
+        this.address = address;
+        this.employeeStatus = employeeStatus;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.onGoing = onGoing;
+        this.hoursPerWeek = hoursPerWeek;
+    }
+    
+    public Employee() {
+    }
+    
 }

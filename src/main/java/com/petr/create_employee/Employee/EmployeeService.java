@@ -16,18 +16,6 @@ public class EmployeeService {
         this.repo = repo;
         this.mapper = mapper;
     } 
-
-
-    // public Optional<Employee> updateById(Long id, UpdateEmployeeDTO data) {
-    //     Optional<Employee> result = this.getById(id);
-    //     if(result.isEmpty()) {
-    //         return result;
-    //     }
-    //     Employee foundEmployee = result.get();
-    //     mapper.map(data, foundEmployee);
-    //     this.repo.save(foundEmployee);
-    //     return Optional.of(foundEmployee);
-    // }
     public Optional<Employee> createEmployee(CreateEmployeeDTO data) throws DuplicateEmailException {
         if(repo.existsByEmailAddress(data.getEmailAddress())) {
             throw new DuplicateEmailException("Email address already exists: " + data.getEmailAddress());
@@ -57,6 +45,9 @@ public class EmployeeService {
         }
         Employee foundEmployee = result.get();
         mapper.map(data, foundEmployee);
+        if(data.getEndDate() == null) {
+            foundEmployee.setEndDate(null);
+        }
         this.repo.save(foundEmployee);
         return Optional.of(foundEmployee);
     }
