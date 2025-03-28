@@ -2,9 +2,11 @@ package com.petr.create_employee.config;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
@@ -42,6 +44,15 @@ public class DataSeeder implements CommandLineRunner {
                 String lastName = faker.name().lastName();
                 LocalDate startDate = LocalDate.ofInstant(faker.date().birthday().toInstant(), ZoneId.systemDefault());
                 Boolean onGoing = faker.random().nextBoolean();
+                LocalDate endDate = null;
+                if(!onGoing) {
+                    Date startDateAsDate = Date.from(
+                        startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
+                    );
+                    Date fakeEnDate = faker.date().future(20, TimeUnit.DAYS, startDateAsDate);
+                    endDate = fakeEnDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                }
+                String address = faker.address().fullAddress();
                 Integer hoursPerWeek = faker.number().numberBetween(15, 40);
                 EmployeeStatus status = faker.options().option(Employee.EmployeeStatus.class);
                 String emailAddress = faker.internet().emailAddress();
@@ -49,7 +60,8 @@ public class DataSeeder implements CommandLineRunner {
                 if(emails.contains(emailAddress) || numbers.contains(mobile)) { 
                     continue;
                 }
-                Employee fakeEmployee = new Employee(firstName, middletName, lastName, emailAddress, mobile, status, startDate, onGoing, hoursPerWeek);
+                
+                Employee fakeEmployee = new Employee(firstName, middletName, lastName, emailAddress, mobile, address, status, startDate, endDate, onGoing, hoursPerWeek);
                 this.employeeRepo.saveAndFlush(fakeEmployee);
             }
         }

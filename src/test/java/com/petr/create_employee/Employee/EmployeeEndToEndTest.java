@@ -33,6 +33,17 @@ public class EmployeeEndToEndTest {
         employees.clear();
         // set up data for tests
         // make sure you are saving valid data
+        // this.firstName = firstName;
+        // this.middleName = middleName;
+        // this.lastName = lastName;
+        // this.emailAddress = emailAddress;
+        // this.mobileNumber = mobileNumber;
+        // this.address = address;
+        // this.employeeStatus = employeeStatus;
+        // this.startDate = startDate;
+        // this.endDate = endDate;
+        // this.onGoing = onGoing;
+        // this.hoursPerWeek = hoursPerWeek;
 
         // Employee 1:
         Employee employee1 = new Employee();
@@ -41,8 +52,10 @@ public class EmployeeEndToEndTest {
         employee1.setLastName("Doe");
         employee1.setEmailAddress("john.doe@example.com");
         employee1.setMobileNumber("+1234567890");
-        employee1.setEmployeeStatus(Employee.EmployeeStatus.PERMANENT);
+        employee1.setAddress("2 Glebe Point Road, Glebe 2037 NSW");
+        employee1.setEmployeeStatus(Employee.EmployeeStatus.PERMANENT_FULL_TIME);
         employee1.setStartDate(LocalDate.of(2023, 1, 15));
+        employee1.setAddress("2 Glebe Point Road, Glebe, 2037 NSW");
         employee1.setOnGoing(true);
         employee1.setHoursPerWeek(40);
         this.repo.save(employee1);
@@ -55,8 +68,10 @@ public class EmployeeEndToEndTest {
         employee2.setLastName("Smith");
         employee2.setEmailAddress("jane.smith@example.com");
         employee2.setMobileNumber("0432 459 496");
+        employee2.setAddress("155 Bridge Road, Glebe 2037 NSW");
         employee2.setEmployeeStatus(Employee.EmployeeStatus.CONTRACT);
         employee2.setStartDate(LocalDate.of(2023, 3, 10));
+        employee2.setEndDate(LocalDate.of(2025, 3, 10));
         employee2.setOnGoing(false);
         employee2.setHoursPerWeek(20);
         this.repo.save(employee2);

@@ -3,6 +3,12 @@ $btn-border-radius: 4px;
 $btn-transition: all 0.2s ease;
 $btn-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
+// Mixins Functions
+@use "sass:color";
+@function darken-color($color, $amount) {
+  @return color.adjust($color, $lightness: -$amount);
+}
+
 // Base button styles
 .btn {
   position: relative;
@@ -58,7 +64,7 @@ $btn-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: white;
 
   &:hover:not(:disabled) {
-    background-color: darken(orangered, 10%);
+    background-color: darken-color(orangered, 10%);
   }
 }
 
@@ -67,7 +73,7 @@ $btn-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: white;
 
   &:hover:not(:disabled) {
-    background-color: darken(gray, 10%);
+    background-color: darken-color(gray, 10%);
   }
 }
 
@@ -76,7 +82,7 @@ $btn-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: white;
 
   &:hover:not(:disabled) {
-    background-color: darken(#dc3545, 10%);
+    background-color: darken-color(#dc3545, 10%);
   }
 }
 
@@ -85,6 +91,6 @@ $btn-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: white;
 
   &:hover:not(:disabled) {
-    background-color: darken(#28a745, 10%);
+    background-color: darken-color(#28a745, 10%);
   }
 }
