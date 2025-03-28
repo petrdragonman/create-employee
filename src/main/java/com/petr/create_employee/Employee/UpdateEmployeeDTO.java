@@ -2,15 +2,18 @@ package com.petr.create_employee.Employee;
 
 import java.time.LocalDate;
 import com.petr.create_employee.Employee.Employee.EmployeeStatus;
-import com.petr.create_employee.Employee.validation.DateRangeContainer;
-import com.petr.create_employee.Employee.validation.EndDateValid;
+import com.petr.create_employee.Employee.validation.EndDate.DateRangeContainer;
+import com.petr.create_employee.Employee.validation.EndDate.EndDateValid;
+import com.petr.create_employee.Employee.validation.HoursPerWeek.HoursPerWeekValid;
+import com.petr.create_employee.Employee.validation.HoursPerWeek.HoursRangeContainer;
 
 import jakarta.validation.constraints.Pattern;
 
 
 
 @EndDateValid
-public class UpdateEmployeeDTO implements DateRangeContainer{
+@HoursPerWeekValid
+public class UpdateEmployeeDTO implements DateRangeContainer, HoursRangeContainer {
     @Pattern(regexp = ".*\\S.*", message = "First name cannot be empty")
     private String firstName;
 
@@ -37,7 +40,6 @@ public class UpdateEmployeeDTO implements DateRangeContainer{
     private Integer hoursPerWeek;
 
     
-
     public String getFirstName() {
         return firstName;
     }

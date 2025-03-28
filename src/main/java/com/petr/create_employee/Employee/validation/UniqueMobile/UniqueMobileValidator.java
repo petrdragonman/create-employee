@@ -1,22 +1,17 @@
-package com.petr.create_employee.Employee.validation;
-
+package com.petr.create_employee.Employee.validation.UniqueMobile;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.petr.create_employee.Employee.EmployeeRepository;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class UniqueMobileValidator implements ConstraintValidator<UniqueMobileValid, String>{
 
     @Autowired
-    EmployeeRepository repo;
+    private EmployeeRepository repo;
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-        // boolean existsByMobileNumber(String mobileNumber);
-        return !repo.existsByMobileNumber(value);
+    public boolean isValid(String mobile, ConstraintValidatorContext context) {
+        return !repo.existsByMobileNumber(mobile);
     }
 
-    
 }
