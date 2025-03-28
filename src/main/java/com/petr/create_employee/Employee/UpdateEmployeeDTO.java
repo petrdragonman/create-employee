@@ -35,7 +35,7 @@ public class UpdateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
 
     private LocalDate endDate;
 
-    private Boolean onGoing;
+    //private Boolean onGoing;
 
     private Integer hoursPerWeek;
 
@@ -88,13 +88,13 @@ public class UpdateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
         this.startDate = startDate;
     }
 
-    public Boolean getOnGoing() {
-        return onGoing;
-    }
+    // public Boolean getOnGoing() {
+    //     return onGoing;
+    // }
 
-    public void setOnGoing(Boolean onGoing) {
-        this.onGoing = onGoing;
-    }
+    // public void setOnGoing(Boolean onGoing) {
+    //     this.onGoing = onGoing;
+    // }
 
     public Integer getHoursPerWeek() {
         return hoursPerWeek;
@@ -136,7 +136,7 @@ public class UpdateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
         return "UpdateEmployeeDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
                 + ", employeeStatus=" + employeeStatus + ", emailAddress=" + emailAddress + ", mobileNumber="
                 + mobileNumber + ", address=" + address + ", startDate=" + startDate + ", endDate=" + endDate
-                + ", onGoing=" + onGoing + ", hoursPerWeek=" + hoursPerWeek + "]";
+                + ", hoursPerWeek=" + hoursPerWeek + "]";
     }
 
 

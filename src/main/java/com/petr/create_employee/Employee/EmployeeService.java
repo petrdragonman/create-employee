@@ -59,14 +59,14 @@ public class EmployeeService {
                 throw new DuplicateEmailException("Email already in use.");
             }
         }
-        // mapper.map(data, foundEmployee);
-        // if(data.getEndDate() == null) {
-        //     foundEmployee.setEndDate(null);
-        // }
-        // this.repo.save(foundEmployee);
-        // return Optional.of(foundEmployee);
         mapper.map(data, foundEmployee);
-        return Optional.of(repo.save(foundEmployee));
+        if(data.getEndDate() == null) {
+            foundEmployee.setEndDate(null);
+        }
+        this.repo.save(foundEmployee);
+        return Optional.of(foundEmployee);
+        // mapper.map(data, foundEmployee);
+        // return Optional.of(repo.save(foundEmployee));
     }
     
 }
