@@ -6,8 +6,9 @@ import {
   createEmployee,
   updateEmployeeById,
   getEmployeeById,
-} from "../services/employeeServices";
-import { EmployeeFormData } from "../components/EmployeeForm/schema";
+} from "../../services/employeeServices";
+import { EmployeeFormData } from "../../components/EmployeeForm/schema";
+import { showToast } from "../notification/toastSlice";
 
 interface EmployeeState {
   employees: Employee[];
@@ -18,6 +19,12 @@ const initialState: EmployeeState = {
   employees: [],
   status: "idle",
   error: null,
+};
+
+const getErrorMessage = (error: unknown) => {
+  if (error instanceof Error) return error.message;
+  if (typeof error === "string") return error;
+  return "An unknown error occurred";
 };
 
 // Async thunk to fetch employees
@@ -43,11 +50,41 @@ export const fetchEmployeeById = createAsyncThunk(
 );
 
 //Async thunk to create employee
+// export const createNewEmployee = createAsyncThunk(
+//   "employees/createNewEmployee",
+//   async (data: EmployeeFormData) => {
+//     const response = await createEmployee(data);
+//     return response;
+//   }
+// );
+
+// Async thunk to create employee
 export const createNewEmployee = createAsyncThunk(
   "employees/createNewEmployee",
-  async (data: EmployeeFormData) => {
-    const response = await createEmployee(data);
-    return response;
+  async (data: EmployeeFormData, { dispatch }) => {
+    try {
+      const response = await createEmployee(data);
+      dispatch(
+        showToast({
+          message: "Employee created successfully!",
+          type: "success",
+        })
+      );
+      return response;
+    } catch (error) {
+      const message = getErrorMessage(error);
+      dispatch(
+        showToast({ message: "Failed to fetch employees", type: "error" })
+      );
+      //throw new Error(message);
+      // const message = error;
+      //   error === "EMAIL_CONFLICT"
+      //     ? "This email is already in use"
+      //     : "Failed to create employee";
+
+      dispatch(showToast({ message, type: "error" }));
+      throw new Error(message);
+    }
   }
 );
 
@@ -89,6 +126,13 @@ const employeeSlice = createSlice({
       .addCase(fetchEmployees.rejected, (state, action) => {
         state.status = "failed";
         state.error = (action.payload as string) || "Failed to fetch employees";
+        return {
+          ...state,
+          toast: showToast({
+            message: state.error,
+            type: "error",
+          }),
+        };
       })
 
       // Fetch employee by id case
@@ -106,6 +150,35 @@ const employeeSlice = createSlice({
         }
       )
 
+      // // Create cases
+      // .addCase(createNewEmployee.pending, (state) => {
+      //   state.status = "loading";
+      //   state.error = null;
+      // })
+      // .addCase(
+      //   createNewEmployee.fulfilled,
+      //   (state, action: PayloadAction<Employee>) => {
+      //     state.status = "succeeded";
+      //     state.employees.push(action.payload);
+      //   }
+      // )
+      // .addCase(createNewEmployee.rejected, (state, action) => {
+      //   state.status = "failed";
+      //   //state.error = (action.payload as string) || "Failed to create employee";
+      //   state.error =
+      //     action.payload === "EMAIL_CONFLICT"
+      //       ? "This email is already in use. Please use a different email address."
+      //       : "Failed to create employee";
+
+      //   return {
+      //     ...state,
+      //     toast: showToast({
+      //       message: "Employee created successfully!",
+      //       type: "success",
+      //     }),
+      //   };
+      // })
+
       // Create cases
       .addCase(createNewEmployee.pending, (state) => {
         state.status = "loading";
@@ -120,11 +193,7 @@ const employeeSlice = createSlice({
       )
       .addCase(createNewEmployee.rejected, (state, action) => {
         state.status = "failed";
-        //state.error = (action.payload as string) || "Failed to create employee";
-        state.error =
-          action.payload === "EMAIL_CONFLICT"
-            ? "This email is already in use. Please use a different email address."
-            : "Failed to create employee";
+        state.error = action.error.message || "Failed to create employee";
       })
 
       // Update cases

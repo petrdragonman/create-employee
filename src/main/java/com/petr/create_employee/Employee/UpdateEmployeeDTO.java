@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import com.petr.create_employee.Employee.Employee.EmployeeStatus;
 import com.petr.create_employee.Employee.validation.EndDate.DateRangeContainer;
 import com.petr.create_employee.Employee.validation.EndDate.EndDateValid;
-import com.petr.create_employee.Employee.validation.HoursPerWeek.HoursPerWeekValid;
 import com.petr.create_employee.Employee.validation.HoursPerWeek.HoursRangeContainer;
 
 import jakarta.validation.constraints.Pattern;
@@ -12,12 +11,12 @@ import jakarta.validation.constraints.Pattern;
 
 
 @EndDateValid
-@HoursPerWeekValid
+//@HoursPerWeekValid
 public class UpdateEmployeeDTO implements DateRangeContainer, HoursRangeContainer {
     @Pattern(regexp = ".*\\S.*", message = "First name cannot be empty")
     private String firstName;
 
-    @Pattern(regexp = ".*\\S.*", message = "First name cannot be empty")
+    //@Pattern(regexp = ".*\\S.*", message = "Middle name cannot be empty")
     private String middleName;
 
     @Pattern(regexp = ".*\\S.*", message = "Last name cannot be empty")

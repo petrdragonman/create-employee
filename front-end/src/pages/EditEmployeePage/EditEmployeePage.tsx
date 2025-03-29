@@ -4,7 +4,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 import { EmployeeFormData } from "../../components/EmployeeForm/schema";
 import classes from "./EditEmployeePage.module.scss";
-import { fetchEmployeeById, updateEmployee } from "../../state/employeeSlice";
+import {
+  fetchEmployeeById,
+  updateEmployee,
+} from "../../state/employee/employeeSlice";
 import EmployeeForm from "../../components/EmployeeForm/EmployeeForm";
 import { useEffect } from "react";
 
@@ -30,7 +33,7 @@ const EditEmployeePage = () => {
       .then(() => {
         navigate("/employees");
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error("Failed to create employee:", error);
       });
   };
@@ -50,7 +53,9 @@ const EditEmployeePage = () => {
     lastName: currentEmployee.lastName,
     emailAddress: currentEmployee.emailAddress,
     mobileNumber: currentEmployee.mobileNumber,
+    address: currentEmployee.address,
     startDate: currentEmployee.startDate.split("T")[0], // Format date
+    endDate: currentEmployee.endDate?.split("T")[0] || "", // Format date
     hoursPerWeek: currentEmployee.hoursPerWeek,
     employeeStatus: currentEmployee.employeeStatus,
     onGoing: currentEmployee.onGoing,

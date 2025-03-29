@@ -32,8 +32,6 @@ const EmployeeForm = ({
 
   const handleCancelClick = () => {
     navigate("/employees");
-    //or
-    // navigate(-1);
   };
 
   return (
@@ -104,6 +102,15 @@ const EmployeeForm = ({
         )}
       </article>
       <article className={classes.field}>
+        <label>Address</label>
+        <input type="text" {...register("address")} className={classes.input} />
+        {errors?.address && (
+          <small className={classes.error_text}>
+            {errors?.address?.message}
+          </small>
+        )}
+      </article>
+      <article className={classes.field}>
         <label>Start Date</label>
         <input
           type="date"
@@ -113,6 +120,15 @@ const EmployeeForm = ({
         {errors?.startDate && (
           <small className={classes.error_text}>
             {errors?.startDate?.message}
+          </small>
+        )}
+      </article>
+      <article className={classes.field}>
+        <label>End Date</label>
+        <input type="date" {...register("endDate")} className={classes.input} />
+        {errors?.endDate && (
+          <small className={classes.error_text}>
+            {errors?.endDate?.message}
           </small>
         )}
       </article>

@@ -5,6 +5,7 @@
   flex-direction: row;
   justify-content: center;
   width: 100%;
+  border: 1px solid red;
   //justify-content: flex-start;
 }
 
@@ -19,63 +20,62 @@
     background-color: #f6e7e1;
     cursor: pointer;
   }
-}
-.item {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-.group_name {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 10px;
-  //padding-right: 20px;
-  width: 200px;
-}
-
-.group_icons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  //width: 100px;
-  padding-left: 20px;
-}
-
-.item_id {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 10px;
-}
-
-.item_mobile {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 120px;
-}
-
-.item_email {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 220px;
-}
-
-.item_status {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 80px;
-}
-
-.item_icon {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 20px;
+  .item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .group_name {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    //padding-right: 20px;
+    width: 200px;
+  }
+  .group_icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    //width: 100px;
+    padding-left: 20px;
+  }
+  .item_id {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 10px;
+  }
+  .item_mobile {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 120px;
+  }
+  .item_email {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 220px;
+  }
+  .item_status {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 200px;
+  }
+  .item_hours {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 140px;
+  }
+  .item_icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 20px;
+  }
 }

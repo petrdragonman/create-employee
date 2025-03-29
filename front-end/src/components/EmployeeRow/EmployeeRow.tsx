@@ -36,6 +36,9 @@ const EmployeeRow = ({ employee, onDelete, onUpdate }: EmployeeRowProps) => {
         <article className={classes.item_status}>
           <p className={classes.item}>{employee.employeeStatus}</p>
         </article>
+        <article className={classes.item_hours}>
+          <p className={classes.item}>{employee.hoursPerWeek} Hours per Week</p>
+        </article>
         <section className={classes.group_icons}>
           <article className={classes.item_icon}>
             <img

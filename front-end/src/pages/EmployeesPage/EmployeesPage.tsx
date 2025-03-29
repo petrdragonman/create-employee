@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import EmployeesList from "../../components/EmployeesList";
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
-import { fetchEmployees, removeEmployee } from "../../state/employeeSlice";
+import {
+  fetchEmployees,
+  removeEmployee,
+} from "../../state/employee/employeeSlice";
 import { useAppDispatch } from "../../state/hooks";
 import { useNavigate } from "react-router";
 import Modal from "../../components/Modal/Modal";
@@ -25,8 +28,6 @@ const EmployeesPage = () => {
   const handleDeleteClick = (id: number) => {
     setEmployeeToDelete(id);
     setShowDeleteModal(true);
-    //console.log("check here before delete is excecuted.....");
-    //dispatch(removeEmployee(id));
   };
 
   const confirmDelete = async () => {
@@ -63,16 +64,25 @@ const EmployeesPage = () => {
         confirmVariant="danger"
       />
       <article className={classes.title}>Create Employee App</article>
-      <section className={classes.btn_create}>
+      {/* <section className={classes.btn_create}>
         <Button variant="primary" onClick={handleCreateClick}>
           Create Employee
         </Button>
+      </section> */}
+      <section className={classes.list}>
+        <section className={classes.btn_create}>
+          <Button variant="primary" onClick={handleCreateClick}>
+            Create Employee
+          </Button>
+        </section>
+        <section className={classes.list}>
+          <EmployeesList
+            employees={employees}
+            onDelete={handleDeleteClick}
+            onUpdate={handleUpdateClick}
+          />
+        </section>
       </section>
-      <EmployeesList
-        employees={employees}
-        onDelete={handleDeleteClick}
-        onUpdate={handleUpdateClick}
-      />
     </div>
   );
 };
