@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import employeeReducer from "./employeeSlice";
+import employeeReducer from "../state/employee/employeeSlice";
+import toastReducer from "../state/notification/toastSlice";
 
 export const store = configureStore({
   reducer: {
     employees: employeeReducer,
+    toast: toastReducer,
   },
 });
 

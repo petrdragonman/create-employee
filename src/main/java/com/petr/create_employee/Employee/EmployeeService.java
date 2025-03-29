@@ -6,8 +6,11 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.petr.create_employee.Employee.Employee.EmployeeStatus;
+import com.petr.create_employee.common.ValidationErrors;
 import com.petr.create_employee.common.exceptions.DuplicateEmailException;
 import com.petr.create_employee.common.exceptions.DuplicateMobileException;
+import com.petr.create_employee.common.exceptions.ServiceValidationException;
 @Service
 public class EmployeeService {
 
@@ -18,16 +21,47 @@ public class EmployeeService {
         this.repo = repo;
         this.mapper = mapper;
     } 
-    public Optional<Employee> createEmployee(CreateEmployeeDTO data) throws DuplicateEmailException {
+    public Employee createEmployee(CreateEmployeeDTO data) throws DuplicateEmailException, ServiceValidationException {
+        final int FULL_TIME_HOURS = 40;
+        final int MAX_PART_TIME_HOURS = 35;
+        EmployeeStatus employeeStatus = data.getEmployeeStatus();
+        Integer hours = data.getHoursPerWeek();
+        ValidationErrors errors = new ValidationErrors();
+
         if(repo.existsByEmailAddress(data.getEmailAddress())) {
-            throw new DuplicateEmailException("Email address already exists: " + data.getEmailAddress());
+            //throw new DuplicateEmailException("Email address already exists: " + data.getEmailAddress());
+            errors.addError("employee", "Email address already exists");
         }
         if(repo.existsByMobileNumber(data.getMobileNumber())) {
-            throw new DuplicateMobileException("Mobile number already exists: " + data.getMobileNumber());
+            //throw new DuplicateMobileException("Mobile number already exists: " + data.getMobileNumber());
+            errors.addError("employee", "Mobile number already exists");
         }
+
+        boolean isValid = switch (employeeStatus) {
+            case PERMANENT_FULL_TIME -> hours == FULL_TIME_HOURS;
+            case PERMANENT_PART_TIME -> hours > 0 && hours <= MAX_PART_TIME_HOURS;
+            case CONTRACT, CASUAL -> hours > 0 && hours <= FULL_TIME_HOURS;
+            default -> false;
+        };
+        if(!isValid) {
+            String message = switch (employeeStatus) {
+                case PERMANENT_FULL_TIME -> "Permanent full-time employees must work exactly 40 hours";
+                case PERMANENT_PART_TIME -> "Permanent part-time employees must work 1-35 hours";
+                case CONTRACT, CASUAL -> "Contract/Casual employees must work 1-40 hours";
+                default -> "Invalid employee status";
+            };
+            errors.addError("employee", message);
+        }
+
+        if(errors.hasErrors()) {
+            System.out.println("HAS ERRORRS");
+            throw new ServiceValidationException(errors);
+        }
+
+
         Employee newEmployee = mapper.map(data, Employee.class);
         this.repo.saveAndFlush(newEmployee);
-        return Optional.of(newEmployee);
+        return newEmployee;
     }
     public List<Employee> getAll() {
         return this.repo.findAll();

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import com.petr.create_employee.Employee.Employee.EmployeeStatus;
 import com.petr.create_employee.Employee.validation.EndDate.DateRangeContainer;
 import com.petr.create_employee.Employee.validation.EndDate.EndDateValid;
-import com.petr.create_employee.Employee.validation.HoursPerWeek.HoursPerWeekValid;
 import com.petr.create_employee.Employee.validation.HoursPerWeek.HoursRangeContainer;
 
 import jakarta.validation.constraints.Max;
@@ -13,7 +12,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @EndDateValid
-@HoursPerWeekValid
+//@HoursPerWeekValid
 public class CreateEmployeeDTO implements DateRangeContainer, HoursRangeContainer {
     @NotBlank
     private String firstName;

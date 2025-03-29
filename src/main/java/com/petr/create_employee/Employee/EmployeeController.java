@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.petr.create_employee.common.exceptions.DuplicateEmailException;
 import com.petr.create_employee.common.exceptions.NotFoundException;
+import com.petr.create_employee.common.exceptions.ServiceValidationException;
 
 import jakarta.validation.Valid;
 
@@ -31,9 +32,8 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> createEmployee(@RequestBody @Valid CreateEmployeeDTO data) throws DuplicateEmailException {
-        Optional<Employee> result = this.employeeService.createEmployee(data);
-        Employee newEmployee = result.orElseThrow(() -> new DuplicateEmailException("Email address already exists."));
+    public ResponseEntity<Employee> createEmployee(@RequestBody @Valid CreateEmployeeDTO data) throws DuplicateEmailException, ServiceValidationException {
+        Employee newEmployee = this.employeeService.createEmployee(data);
         return new ResponseEntity<Employee>(newEmployee, HttpStatus.CREATED);
     }
 

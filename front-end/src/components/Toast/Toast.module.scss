@@ -1,4 +1,6 @@
 .alert {
+  position: fixed;
+  z-index: 1000;
   padding: 1rem;
   margin: 0.5rem 0;
   border-radius: 4px;
@@ -7,6 +9,15 @@
   align-items: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   animation: slideIn 0.3s ease-out;
+
+  /* Center the toast */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Minimum width for better appearance */
+  min-width: 300px;
+  max-width: 90%;
 
   .content {
     display: flex;
@@ -56,11 +67,11 @@
 // Animation
 @keyframes slideIn {
   from {
-    transform: translateY(20px);
+    transform: translateY(-50%, -40%);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(-50%, -50%);
     opacity: 1;
   }
 }
