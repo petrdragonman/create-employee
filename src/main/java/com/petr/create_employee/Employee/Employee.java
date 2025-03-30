@@ -57,7 +57,6 @@ public class Employee extends BaseEntity {
     @Max(value = 40, message = "Hours per week can not be more than 40")
     private Integer hoursPerWeek;
 
-
     public String getFirstName() {
         return firstName;
     }

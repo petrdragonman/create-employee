@@ -1,4 +1,4 @@
-name: reviewdog
+name: Lint
 on:
   pull_request:
     branches: ["main", "develop"]
@@ -17,6 +17,9 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "21"
+          #cache: maven
+      - name: Build and test with Maven
+        run: mvn --batch-mode package
 
       # - name: Set up JDK 21
       #   uses: actions/setup-java@v2
