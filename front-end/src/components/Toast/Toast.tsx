@@ -7,35 +7,41 @@ import { hideToast } from "../../state/notification/toastSlice";
 const Toast = () => {
   const dispatch = useAppDispatch();
   const { message, type, isVisible } = useAppSelector((state) => state.toast);
+  let timer: number | undefined;
 
-  console.log("IN THE TOAST>>>>");
   useEffect(() => {
-    if (isVisible) {
-      const timer = setTimeout(() => {
+    if (isVisible && type === "success") {
+      timer = window.setTimeout(() => {
         dispatch(hideToast());
       }, 3000);
-      return () => clearTimeout(timer);
     }
-  }, [isVisible, dispatch]);
+
+    return () => {
+      if (timer) {
+        window.clearTimeout(timer);
+      }
+    };
+  }, [isVisible, type, dispatch]);
 
   if (!isVisible || !message || !type) return null;
-
-  const iconMap = {
-    error: <FaExclamation />,
-    success: <FaCheck />,
-  };
 
   return (
     <div
       className={`${classes.alert} ${classes[type]} ${classes["top-right"]}`}
     >
       <div className={classes.content}>
-        <span className={classes.icon}>{iconMap[type]}</span>
-        <span>{message}</span>
+        <span className={classes.icon}>
+          {type === "success" ? <FaCheck /> : <FaExclamation />}
+        </span>
+        <span className={classes.message}>{message}</span>
       </div>
       <button
-        onClick={() => dispatch(hideToast())}
+        onClick={() => {
+          if (timer) window.clearTimeout(timer);
+          dispatch(hideToast());
+        }}
         className={classes.closeBtn}
+        aria-label="Close notification"
       >
         <FaTimes />
       </button>

@@ -15,94 +15,108 @@ interface EmployeeState {
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }
+
 const initialState: EmployeeState = {
   employees: [],
   status: "idle",
   error: null,
 };
 
-const getErrorMessage = (error: unknown) => {
+const handleError = (error: unknown): string => {
   if (error instanceof Error) return error.message;
   if (typeof error === "string") return error;
   return "An unknown error occurred";
 };
 
-// Async thunk to fetch employees
+// Helper function for showing toast notifications
+const showSuccessToast = (message: string, dispatch: any) => {
+  dispatch(showToast({ message, type: "success" }));
+};
+
+const showErrorToast = (
+  error: unknown,
+  dispatch: any,
+  defaultMessage: string
+) => {
+  const message = handleError(error);
+  dispatch(
+    showToast({
+      message: message || defaultMessage,
+      type: "error",
+    })
+  );
+};
+
+// Async Thunks
 export const fetchEmployees = createAsyncThunk(
   "employees/fetchEmployees",
-  async () => {
-    const response = await getAllEmployees();
-    return response;
+  async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const employees = await getAllEmployees();
+      return employees;
+    } catch (error) {
+      showErrorToast(error, dispatch, "Failed to fetch employees");
+      return rejectWithValue(handleError(error));
+    }
   }
 );
 
-// Async thunk to fetch single employee
 export const fetchEmployeeById = createAsyncThunk(
   "employees/fetchById",
-  async (id: number, { rejectWithValue }) => {
+  async (id: number, { dispatch, rejectWithValue }) => {
     try {
-      const response = await getEmployeeById(id);
-      return response;
+      const employee = await getEmployeeById(id);
+      showSuccessToast("Employee details loaded", dispatch);
+      return employee;
     } catch (error) {
-      return rejectWithValue((error as Error).message);
+      showErrorToast(error, dispatch, "Failed to fetch employee details");
+      return rejectWithValue(handleError(error));
     }
   }
 );
 
-//Async thunk to create employee
-// export const createNewEmployee = createAsyncThunk(
-//   "employees/createNewEmployee",
-//   async (data: EmployeeFormData) => {
-//     const response = await createEmployee(data);
-//     return response;
-//   }
-// );
-
-// Async thunk to create employee
 export const createNewEmployee = createAsyncThunk(
   "employees/createNewEmployee",
-  async (data: EmployeeFormData, { dispatch }) => {
+  async (data: EmployeeFormData, { dispatch, rejectWithValue }) => {
     try {
       const response = await createEmployee(data);
-      dispatch(
-        showToast({
-          message: "Employee created successfully!",
-          type: "success",
-        })
-      );
+      showSuccessToast("Employee created successfully!", dispatch);
       return response;
     } catch (error) {
-      const message = getErrorMessage(error);
-      dispatch(
-        showToast({ message: "Failed to fetch employees", type: "error" })
-      );
-      //throw new Error(message);
-      // const message = error;
-      //   error === "EMAIL_CONFLICT"
-      //     ? "This email is already in use"
-      //     : "Failed to create employee";
-
-      dispatch(showToast({ message, type: "error" }));
-      throw new Error(message);
+      showErrorToast(error, dispatch, "Failed to create employee");
+      return rejectWithValue(handleError(error));
     }
   }
 );
 
-// Async thunk to update existing employee
 export const updateEmployee = createAsyncThunk(
   "employees/updateEmployee",
-  async ({ id, data }: { id: number; data: EmployeeFormData }) => {
-    const response = await updateEmployeeById(id, data);
-    return response;
+  async (
+    { id, data }: { id: number; data: EmployeeFormData },
+    { dispatch, rejectWithValue }
+  ) => {
+    try {
+      const response = await updateEmployeeById(id, data);
+      showSuccessToast("Employee updated successfully!", dispatch);
+      return response;
+    } catch (error) {
+      showErrorToast(error, dispatch, "Failed to update employee");
+      return rejectWithValue(handleError(error));
+    }
   }
 );
 
-// Async thunk to delete an employee
 export const removeEmployee = createAsyncThunk(
   "employees/removeEmployee",
-  async (id: number) => {
-    await deleteEmployee(id);
-    return id;
+  async (id: number, { dispatch, rejectWithValue }) => {
+    try {
+      await deleteEmployee(id);
+      showSuccessToast("Employee deleted successfully", dispatch);
+      return id;
+    } catch (error) {
+      showErrorToast(error, dispatch, "Failed to delete employee");
+      return rejectWithValue(handleError(error));
+    }
   }
 );
 
@@ -111,11 +125,18 @@ const employeeSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    const handlePending = (state: EmployeeState) => {
+      state.status = "loading";
+      state.error = null;
+    };
+
+    const handleRejected = (state: EmployeeState, action: any) => {
+      state.status = "failed";
+      state.error = action.payload as string;
+    };
+
     builder
-      // Fetch cases
-      .addCase(fetchEmployees.pending, (state) => {
-        state.status = "loading";
-      })
+      .addCase(fetchEmployees.pending, handlePending)
       .addCase(
         fetchEmployees.fulfilled,
         (state, action: PayloadAction<Employee[]>) => {
@@ -123,19 +144,8 @@ const employeeSlice = createSlice({
           state.employees = action.payload;
         }
       )
-      .addCase(fetchEmployees.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = (action.payload as string) || "Failed to fetch employees";
-        return {
-          ...state,
-          toast: showToast({
-            message: state.error,
-            type: "error",
-          }),
-        };
-      })
+      .addCase(fetchEmployees.rejected, handleRejected)
 
-      // Fetch employee by id case
       .addCase(
         fetchEmployeeById.fulfilled,
         (state, action: PayloadAction<Employee>) => {
@@ -150,40 +160,7 @@ const employeeSlice = createSlice({
         }
       )
 
-      // // Create cases
-      // .addCase(createNewEmployee.pending, (state) => {
-      //   state.status = "loading";
-      //   state.error = null;
-      // })
-      // .addCase(
-      //   createNewEmployee.fulfilled,
-      //   (state, action: PayloadAction<Employee>) => {
-      //     state.status = "succeeded";
-      //     state.employees.push(action.payload);
-      //   }
-      // )
-      // .addCase(createNewEmployee.rejected, (state, action) => {
-      //   state.status = "failed";
-      //   //state.error = (action.payload as string) || "Failed to create employee";
-      //   state.error =
-      //     action.payload === "EMAIL_CONFLICT"
-      //       ? "This email is already in use. Please use a different email address."
-      //       : "Failed to create employee";
-
-      //   return {
-      //     ...state,
-      //     toast: showToast({
-      //       message: "Employee created successfully!",
-      //       type: "success",
-      //     }),
-      //   };
-      // })
-
-      // Create cases
-      .addCase(createNewEmployee.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
-      })
+      .addCase(createNewEmployee.pending, handlePending)
       .addCase(
         createNewEmployee.fulfilled,
         (state, action: PayloadAction<Employee>) => {
@@ -191,15 +168,9 @@ const employeeSlice = createSlice({
           state.employees.push(action.payload);
         }
       )
-      .addCase(createNewEmployee.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message || "Failed to create employee";
-      })
+      .addCase(createNewEmployee.rejected, handleRejected)
 
-      // Update cases
-      .addCase(updateEmployee.pending, (state) => {
-        state.status = "loading";
-      })
+      .addCase(updateEmployee.pending, handlePending)
       .addCase(
         updateEmployee.fulfilled,
         (state, action: PayloadAction<Employee>) => {
@@ -207,20 +178,12 @@ const employeeSlice = createSlice({
           const index = state.employees.findIndex(
             (e) => e.id === action.payload.id
           );
-          if (index !== -1) {
-            state.employees[index] = action.payload;
-          }
+          if (index !== -1) state.employees[index] = action.payload;
         }
       )
-      .addCase(updateEmployee.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = (action.payload as string) || "Failed to update employee";
-      })
+      .addCase(updateEmployee.rejected, handleRejected)
 
-      // Delete cases
-      .addCase(removeEmployee.pending, (state) => {
-        state.status = "loading";
-      })
+      .addCase(removeEmployee.pending, handlePending)
       .addCase(
         removeEmployee.fulfilled,
         (state, action: PayloadAction<number>) => {
@@ -230,12 +193,8 @@ const employeeSlice = createSlice({
           );
         }
       )
-      .addCase(removeEmployee.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = (action.payload as string) || "Failed to delete employee";
-      });
+      .addCase(removeEmployee.rejected, handleRejected);
   },
 });
 
-//export const { fetchEmployees, removeEmployee } = employeeSlice.actions;
 export default employeeSlice.reducer;
