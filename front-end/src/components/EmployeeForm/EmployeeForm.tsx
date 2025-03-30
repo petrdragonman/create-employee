@@ -28,7 +28,7 @@ const EmployeeForm = ({
     defaultValues,
   });
 
-  isSubmitSuccessful && reset();
+  //isSubmitSuccessful && reset();
 
   const handleCancelClick = () => {
     navigate("/employees");
@@ -160,7 +160,7 @@ const EmployeeForm = ({
           </small>
         )}
       </article>
-      <article className={classes.field}>
+      {/* <article className={classes.field}>
         <label className={classes.custom_checkbox}>On Going</label>
         <input
           type="checkbox"
@@ -170,7 +170,7 @@ const EmployeeForm = ({
         {errors?.onGoing && (
           <small className={classes.error_text}>{errors.onGoing.message}</small>
         )}
-      </article>
+      </article> */}
       <section className={classes.btn_container}>
         <article>
           <Button variant={"secondary"} onClick={handleCancelClick}>
