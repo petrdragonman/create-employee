@@ -12,7 +12,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @EndDateValid
-//@HoursPerWeekValid
 public class CreateEmployeeDTO implements DateRangeContainer, HoursRangeContainer {
     @NotBlank
     private String firstName;
