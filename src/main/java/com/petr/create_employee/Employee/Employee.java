@@ -53,20 +53,10 @@ public class Employee extends BaseEntity {
     @Column(nullable = true)
     private LocalDate endDate;
 
-    // @Column(nullable = false)
-    // private Boolean onGoing;
-
     @Column(nullable = false)
     @Min(value = 1, message = "Hours per week must be at least 1")
     @Max(value = 40, message = "Hours per week can not be more than 40")
     private Integer hoursPerWeek;
-
-    // public boolean isOnGoing() {
-    //     if(startDate != null && endDate == null) {
-    //         return true;
-    //     }
-    //     return false;
-    // }
 
     public String getFirstName() {
         return firstName;
@@ -115,14 +105,6 @@ public class Employee extends BaseEntity {
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
-
-    // public Boolean getOnGoing() {
-    //     return onGoing;
-    // }
-
-    // public void setOnGoing(Boolean onGoing) {
-    //     this.onGoing = onGoing;
-    // }
 
     public Integer getHoursPerWeek() {
         return hoursPerWeek;
