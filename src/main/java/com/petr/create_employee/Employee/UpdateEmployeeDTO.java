@@ -9,14 +9,11 @@ import com.petr.create_employee.Employee.validation.HoursPerWeek.HoursRangeConta
 import jakarta.validation.constraints.Pattern;
 
 
-
 @EndDateValid
-//@HoursPerWeekValid
 public class UpdateEmployeeDTO implements DateRangeContainer, HoursRangeContainer {
     @Pattern(regexp = ".*\\S.*", message = "First name cannot be empty")
     private String firstName;
 
-    //@Pattern(regexp = ".*\\S.*", message = "Middle name cannot be empty")
     private String middleName;
 
     @Pattern(regexp = ".*\\S.*", message = "Last name cannot be empty")
@@ -33,8 +30,6 @@ public class UpdateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
     private LocalDate startDate;
 
     private LocalDate endDate;
-
-    //private Boolean onGoing;
 
     private Integer hoursPerWeek;
 
@@ -86,14 +81,6 @@ public class UpdateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
     public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
-
-    // public Boolean getOnGoing() {
-    //     return onGoing;
-    // }
-
-    // public void setOnGoing(Boolean onGoing) {
-    //     this.onGoing = onGoing;
-    // }
 
     public Integer getHoursPerWeek() {
         return hoursPerWeek;

@@ -22,7 +22,6 @@ public class DataSeeder implements CommandLineRunner {
     private final Locale australia = new Locale.Builder().setLanguage("en").setRegion("AU").build();
     private final EmployeeRepository employeeRepo;
     private final Faker faker = new Faker(australia);
-    //Faker faker = new Faker(new Locale("en-AU")); // Australian locale
 
     public DataSeeder(EmployeeRepository employeeRepo) {
         this.employeeRepo = employeeRepo;
@@ -33,10 +32,6 @@ public class DataSeeder implements CommandLineRunner {
         if(employeeRepo.count() == 0) { 
             Set<String> emails = new HashSet<String>();
             Set<String> numbers = new HashSet<String>();
-
-
-            System.out.println("Address: " + faker.address().fullAddress());
-
 
             for(int i = 0; i < 20; i++) { 
                 String firstName = faker.name().firstName();
