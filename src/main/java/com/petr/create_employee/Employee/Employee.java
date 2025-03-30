@@ -33,7 +33,6 @@ public class Employee extends BaseEntity {
     private String lastName;
 
     @Column(unique = true)
-    //@Email
     private String emailAddress;
 
     @Column(unique = true)
