@@ -17,6 +17,9 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "21"
+          cache: maven
+      - name: Build and test with Maven
+        run: mvn --batch-mode package
       #- run: java HelloworldApp.java
 
       # - name: Set up JDK 21
