@@ -18,10 +18,7 @@ const NewEmployeePage = () => {
       .then(() => {
         navigate("/employees");
       })
-      .catch((error) => {
-        ////////////// Toast should be shown by the thunk
-        console.error("Creation failed:", error);
-      });
+      .catch(() => {});
   };
 
   return (
