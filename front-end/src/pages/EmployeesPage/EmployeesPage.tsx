@@ -1,12 +1,16 @@
 import classes from "./EmployeesPage.module.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import EmployeesList from "../../components/EmployeesList";
-import Button from "../../components/Button/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
-import { fetchEmployees, removeEmployee } from "../../state/employeeSlice";
+import {
+  fetchEmployees,
+  removeEmployee,
+} from "../../state/employee/employeeSlice";
 import { useAppDispatch } from "../../state/hooks";
 import { useNavigate } from "react-router";
+import Modal from "../../components/Modal/Modal";
+import Button from "../../components/Button/Button";
 
 const EmployeesPage = () => {
   const navigate = useNavigate();
@@ -14,36 +18,71 @@ const EmployeesPage = () => {
     (state: RootState) => state.employees.employees
   );
   const dispatch = useAppDispatch();
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [employeeToDelete, setEmployeeToDelete] = useState<number | null>(null);
 
   useEffect(() => {
     dispatch(fetchEmployees());
   }, [dispatch]);
 
-  const handleDelete = async (id: number) => {
-    dispatch(removeEmployee(id));
+  const handleDeleteClick = (id: number) => {
+    setEmployeeToDelete(id);
+    setShowDeleteModal(true);
   };
 
-  const handleClick = () => {
+  const confirmDelete = async () => {
+    if (employeeToDelete !== null) {
+      await dispatch(removeEmployee(employeeToDelete));
+      setShowDeleteModal(false);
+      setEmployeeToDelete(null);
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setEmployeeToDelete(null);
+  };
+
+  const handleCreateClick = () => {
     navigate("/employees/new");
   };
 
-  const handleUpdate = (id: number) => {
+  const handleUpdateClick = (id: number) => {
     navigate(`/employees/${id}`);
   };
 
   return (
     <div className={classes.container}>
-      <article className={classes.title}>create employee app</article>
-      <section className={classes.btn_create}>
-        <Button variant="primary" onClick={handleClick}>
-          Create new employee
-        </Button>
-      </section>
-      <EmployeesList
-        employees={employees}
-        onDelete={handleDelete}
-        onUpdate={handleUpdate}
+      <Modal
+        isOpen={showDeleteModal}
+        title="Confirm Deletion"
+        message={`Are you sure you want to delete employee id: ${employeeToDelete}? This action can not be undone!`}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+        confirmText="Delete"
+        cancelText="Cancel"
+        confirmVariant="danger"
       />
+      <article className={classes.title}>Create Employee App</article>
+      {/* <section className={classes.btn_create}>
+        <Button variant="primary" onClick={handleCreateClick}>
+          Create Employee
+        </Button>
+      </section> */}
+      <section className={classes.list}>
+        <section className={classes.btn_create}>
+          <Button variant="primary" onClick={handleCreateClick}>
+            Create Employee
+          </Button>
+        </section>
+        <section className={classes.list}>
+          <EmployeesList
+            employees={employees}
+            onDelete={handleDeleteClick}
+            onUpdate={handleUpdateClick}
+          />
+        </section>
+      </section>
     </div>
   );
 };

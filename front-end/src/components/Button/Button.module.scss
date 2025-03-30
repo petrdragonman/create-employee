@@ -1,23 +1,96 @@
-.btn {
-  background-color: white;
-  border: 1px solid black;
-  padding: 8px 12px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 1.2em;
-  font-weight: 600;
-  border-radius: 5%;
+// Variables
+$btn-border-radius: 4px;
+$btn-transition: all 0.2s ease;
+$btn-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-  &:hover {
-    transform: scale(1.05);
+// Mixins Functions
+@use "sass:color";
+@function darken-color($color, $amount) {
+  @return color.adjust($color, $lightness: -$amount);
+}
+
+// Base button styles
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 26px;
+  border: none;
+  border-radius: $btn-border-radius;
+  font-weight: 500;
+  cursor: pointer;
+  transition: $btn-transition;
+  white-space: nowrap;
+  user-select: none;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1;
+  box-shadow: $btn-box-shadow;
+
+  // Remove default focus outline and add custom one
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  }
+
+  // Disabled state
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    box-shadow: none;
   }
 }
 
+// Size variants
+.small {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.medium {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.large {
+  padding: 12px 24px;
+  font-size: 16px;
+}
+
+// Color variants
 .primary {
-  border: 1px solid #fb7431;
+  background-color: orangered;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: darken-color(orangered, 10%);
+  }
+}
+
+.secondary {
+  background-color: gray;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: darken-color(gray, 10%);
+  }
 }
 
 .danger {
-  border: 1px solid red;
-  color: red;
+  background-color: #dc3545;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: darken-color(#dc3545, 10%);
+  }
+}
+
+.success {
+  background-color: #28a745;
+  color: white;
+
+  &:hover:not(:disabled) {
+    background-color: darken-color(#28a745, 10%);
+  }
 }

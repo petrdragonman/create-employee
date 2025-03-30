@@ -1,5 +1,4 @@
 package com.petr.create_employee.config;
-
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.spi.MappingContext;
@@ -8,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ModelMapperConfig {
-
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper mapper = new ModelMapper();
@@ -41,17 +39,4 @@ public class ModelMapperConfig {
                 : input;
         }
     }
-
-
-    // private class StringTrimConverter implements Converter<String, String> {
-    //     @Override
-    //     public String convert(MappingContext<String, String> context) {
-    //         String source = context.getSource();
-    //         if(context.getSource() == null) {
-    //             return null;
-    //         }
-    //         String trimmedString = source.trim();
-    //         return trimmedString.substring(0, 1).toUpperCase() + trimmedString.substring(1).toLowerCase();
-    //     }   
-    // }  
 }

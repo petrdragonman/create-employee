@@ -2,11 +2,18 @@ package com.petr.create_employee.Employee;
 import java.time.LocalDate;
 
 import com.petr.create_employee.Employee.Employee.EmployeeStatus;
+import com.petr.create_employee.Employee.validation.EndDate.DateRangeContainer;
+import com.petr.create_employee.Employee.validation.EndDate.EndDateValid;
+import com.petr.create_employee.Employee.validation.HoursPerWeek.HoursRangeContainer;
+
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class CreateEmployeeDTO {
+@EndDateValid
+//@HoursPerWeekValid
+public class CreateEmployeeDTO implements DateRangeContainer, HoursRangeContainer {
     @NotBlank
     private String firstName;
 
@@ -24,14 +31,21 @@ public class CreateEmployeeDTO {
     @NotBlank
     private String mobileNumber;
 
+    @NotBlank
+    private String address;
+
     @NotNull
     private LocalDate startDate;
 
-    @NotNull
-    private Boolean onGoing;
+
+    private LocalDate endDate;
+
+    // @NotNull
+    // private Boolean onGoing;
 
     @NotNull
-    @Min(0)
+    @Min(value = 1, message = "Hours per week must be at least 1")
+    @Max(value = 40, message = "Hours per week can not be more than 40")
     private Integer hoursPerWeek;
 
     public String getFirstName() {
@@ -58,23 +72,34 @@ public class CreateEmployeeDTO {
         return startDate;
     }
 
-    public Boolean getOnGoing() {
-        return onGoing;
-    }
+    // public Boolean getOnGoing() {
+    //     return onGoing;
+    // }
 
     public Integer getHoursPerWeek() {
         return hoursPerWeek;
     }
 
+    
+
     @Override
     public String toString() {
         return "CreateEmployeeDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
-                + ", employeeStatus=" + employeeStatus + ", emailAddress=" + emailAddress + ", mobileNumber=" + mobileNumber
-                + ", startDate=" + startDate + ", onGoing=" + onGoing + ", hoursPerWeek=" + hoursPerWeek + "]";
+                + ", employeeStatus=" + employeeStatus + ", emailAddress=" + emailAddress + ", mobileNumber="
+                + mobileNumber + ", address=" + address + ", startDate=" + startDate + ", endDate=" + endDate
+                + ", hoursPerWeek=" + hoursPerWeek + "]";
     }
 
     public EmployeeStatus getEmployeeStatus() {
         return employeeStatus;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
     }
     
 }

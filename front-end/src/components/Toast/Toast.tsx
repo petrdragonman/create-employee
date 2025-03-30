@@ -1,52 +1,50 @@
 import { useEffect } from "react";
 import classes from "./Toast.module.scss";
 import { FaCheck, FaExclamation, FaTimes } from "react-icons/fa";
+import { useAppDispatch, useAppSelector } from "../../state/hooks";
+import { hideToast } from "../../state/notification/toastSlice";
 
-export type ToastType = "error" | "success";
+const Toast = () => {
+  const dispatch = useAppDispatch();
+  const { message, type, isVisible } = useAppSelector((state) => state.toast);
+  let timer: number | undefined;
 
-interface ToastProps {
-  type: ToastType;
-  message: string | null;
-  onClose?: () => void;
-  autoClose?: boolean;
-  autoCloseDuration?: number;
-}
-
-const Toast = ({
-  type,
-  message,
-  onClose,
-  autoClose = true,
-  autoCloseDuration = 1000,
-}: ToastProps) => {
   useEffect(() => {
-    if (autoClose && message) {
-      const timer = setTimeout(() => {
-        onClose?.();
-      }, autoCloseDuration);
-      return () => clearTimeout(timer);
+    if (isVisible && type === "success") {
+      timer = window.setTimeout(() => {
+        dispatch(hideToast());
+      }, 3000);
     }
-  }, [message, autoClose, autoCloseDuration, onClose]);
-  if (!message) {
-    return null;
-  }
 
-  const iconMap = {
-    error: <FaExclamation />,
-    success: <FaCheck />,
-  };
+    return () => {
+      if (timer) {
+        window.clearTimeout(timer);
+      }
+    };
+  }, [isVisible, type, dispatch]);
+
+  if (!isVisible || !message || !type) return null;
 
   return (
-    <div className={`${classes.alert} ${classes[type]}`}>
+    <div
+      className={`${classes.alert} ${classes[type]} ${classes["top-right"]}`}
+    >
       <div className={classes.content}>
-        <span className={classes.icon}>{iconMap[type]}</span>
-        <span>{message}</span>
+        <span className={classes.icon}>
+          {type === "success" ? <FaCheck /> : <FaExclamation />}
+        </span>
+        <span className={classes.message}>{message}</span>
       </div>
-      {onClose && (
-        <button onClick={onClose} className={classes.closeBtn}>
-          <FaTimes />
-        </button>
-      )}
+      <button
+        onClick={() => {
+          if (timer) window.clearTimeout(timer);
+          dispatch(hideToast());
+        }}
+        className={classes.closeBtn}
+        aria-label="Close notification"
+      >
+        <FaTimes />
+      </button>
     </div>
   );
 };

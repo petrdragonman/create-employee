@@ -1,4 +1,5 @@
 import { EmployeeFormData } from "../components/EmployeeForm/schema";
+import { ValidationError } from "./error";
 
 export interface Employee {
   emailAddress: string;
@@ -8,13 +9,19 @@ export interface Employee {
   lastName: string;
   middleName: string | null; // can be a string or null
   mobileNumber: string;
+  address: string;
   onGoing: boolean;
   startDate: string; // Date in YYYY-MM-DD format
+  endDate: string | null;
   employeeStatus: EmployeeStatus; // Union type
   updatedAt: string; // ISO date string
 }
 
-type EmployeeStatus = "PERMANENT" | "CONTRACT" | "CASUAL";
+type EmployeeStatus =
+  | "PERMANENT_FULL_TIME"
+  | "PERMANENT_PART_TIME"
+  | "CONTRACT"
+  | "CASUAL";
 
 export const getAllEmployees = async () => {
   const response = await fetch("http://localhost:8080/employees");
@@ -54,7 +61,11 @@ export const createEmployee = async (data: EmployeeFormData) => {
     body: JSON.stringify(data),
   });
   if (!response.ok) {
-    throw new Error("failed to create employee");
+    const errorData = await response.json();
+    if (errorData.errors && typeof errorData.errors === "object") {
+      throw new ValidationError(errorData);
+    }
+    throw new Error(errorData.message || "Failed create employee");
   }
   return (await response.json()) as Employee;
 };

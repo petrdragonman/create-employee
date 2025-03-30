@@ -5,14 +5,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.petr.create_employee.common.exceptions.DuplicateEmailException;
 import com.petr.create_employee.common.exceptions.NotFoundException;
+import com.petr.create_employee.common.exceptions.ServiceValidationException;
 
 import jakarta.validation.Valid;
 
 import java.util.List;
-//import java.util.Map;
 import java.util.Optional;
 
-import org.hibernate.mapping.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,14 +32,9 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> createEmployee(@RequestBody @Valid CreateEmployeeDTO data) {
-        //try {
-            Employee newEmployee = this.employeeService.createEmployee(data);
-            return new ResponseEntity<Employee>(newEmployee, HttpStatus.CREATED);
-        //} catch (DuplicateEmailException e) {
-            //return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("error", e.getMessage()));
-        //}
-        
+    public ResponseEntity<Employee> createEmployee(@RequestBody @Valid CreateEmployeeDTO data) throws DuplicateEmailException, ServiceValidationException {
+        Employee newEmployee = this.employeeService.createEmployee(data);
+        return new ResponseEntity<Employee>(newEmployee, HttpStatus.CREATED);
     }
 
     @GetMapping

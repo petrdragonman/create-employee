@@ -28,12 +28,10 @@ const EmployeeForm = ({
     defaultValues,
   });
 
-  isSubmitSuccessful && reset();
+  //isSubmitSuccessful && reset();
 
   const handleCancelClick = () => {
     navigate("/employees");
-    //or
-    // navigate(-1);
   };
 
   return (
@@ -104,6 +102,15 @@ const EmployeeForm = ({
         )}
       </article>
       <article className={classes.field}>
+        <label>Address</label>
+        <input type="text" {...register("address")} className={classes.input} />
+        {errors?.address && (
+          <small className={classes.error_text}>
+            {errors?.address?.message}
+          </small>
+        )}
+      </article>
+      <article className={classes.field}>
         <label>Start Date</label>
         <input
           type="date"
@@ -113,6 +120,15 @@ const EmployeeForm = ({
         {errors?.startDate && (
           <small className={classes.error_text}>
             {errors?.startDate?.message}
+          </small>
+        )}
+      </article>
+      <article className={classes.field}>
+        <label>End Date</label>
+        <input type="date" {...register("endDate")} className={classes.input} />
+        {errors?.endDate && (
+          <small className={classes.error_text}>
+            {errors?.endDate?.message}
           </small>
         )}
       </article>
@@ -144,20 +160,20 @@ const EmployeeForm = ({
           </small>
         )}
       </article>
-      <article className={classes.field}>
-        <label>On Going</label>
+      {/* <article className={classes.field}>
+        <label className={classes.custom_checkbox}>On Going</label>
         <input
           type="checkbox"
           {...register("onGoing")}
-          className={classes.ongoing_input}
+          className={classes.checkmark}
         />
         {errors?.onGoing && (
           <small className={classes.error_text}>{errors.onGoing.message}</small>
         )}
-      </article>
+      </article> */}
       <section className={classes.btn_container}>
         <article>
-          <Button variant={"primary"} onClick={handleCancelClick}>
+          <Button variant={"secondary"} onClick={handleCancelClick}>
             Cancel
           </Button>
         </article>

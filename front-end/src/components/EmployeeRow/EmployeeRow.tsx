@@ -18,7 +18,10 @@ const EmployeeRow = ({ employee, onDelete, onUpdate }: EmployeeRowProps) => {
 
   return (
     <main>
-      <section className={classes.row} onClick={handleUpdate}>
+      <section
+        className={`${classes.row} ${classes[employee.employeeStatus]}`}
+        onClick={handleUpdate}
+      >
         <section className={classes.item_id}>
           <p className={classes.item}>{employee.id}</p>
         </section>
@@ -35,6 +38,9 @@ const EmployeeRow = ({ employee, onDelete, onUpdate }: EmployeeRowProps) => {
         </article>
         <article className={classes.item_status}>
           <p className={classes.item}>{employee.employeeStatus}</p>
+        </article>
+        <article className={classes.item_hours}>
+          <p className={classes.item}>{employee.hoursPerWeek} Hours per Week</p>
         </article>
         <section className={classes.group_icons}>
           <article className={classes.item_icon}>
@@ -53,20 +59,3 @@ const EmployeeRow = ({ employee, onDelete, onUpdate }: EmployeeRowProps) => {
 };
 
 export default EmployeeRow;
-
-/**
- * export interface Employee {
-   createdAt: string; // ISO date string
-   emailAddress: string;
-   firstName: string;
-   hoursPerWeek: number;
-   id: number;
-   lastName: string;
-   middleName: string | null; // middleName can be a string or null
-   mobileNumber: string;
-   onGoing: boolean;
-   startDate: string; // Date in YYYY-MM-DD format
-   status: EmployeeStatus; // Union type for status
-   updatedAt: string; // ISO date string
- }
- */

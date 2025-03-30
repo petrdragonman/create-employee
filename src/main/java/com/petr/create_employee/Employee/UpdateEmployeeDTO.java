@@ -1,18 +1,22 @@
 package com.petr.create_employee.Employee;
 
 import java.time.LocalDate;
-
 import com.petr.create_employee.Employee.Employee.EmployeeStatus;
-
-import jakarta.validation.constraints.Min;
+import com.petr.create_employee.Employee.validation.EndDate.DateRangeContainer;
+import com.petr.create_employee.Employee.validation.EndDate.EndDateValid;
+import com.petr.create_employee.Employee.validation.HoursPerWeek.HoursRangeContainer;
 
 import jakarta.validation.constraints.Pattern;
 
-public class UpdateEmployeeDTO {
+
+
+@EndDateValid
+//@HoursPerWeekValid
+public class UpdateEmployeeDTO implements DateRangeContainer, HoursRangeContainer {
     @Pattern(regexp = ".*\\S.*", message = "First name cannot be empty")
     private String firstName;
 
-    @Pattern(regexp = ".*\\S.*", message = "First name cannot be empty")
+    //@Pattern(regexp = ".*\\S.*", message = "Middle name cannot be empty")
     private String middleName;
 
     @Pattern(regexp = ".*\\S.*", message = "Last name cannot be empty")
@@ -24,15 +28,17 @@ public class UpdateEmployeeDTO {
 
     private String mobileNumber;
 
+    private String address;
+
     private LocalDate startDate;
 
-    private Boolean onGoing;
+    private LocalDate endDate;
 
-    @Min(0)
+    //private Boolean onGoing;
+
     private Integer hoursPerWeek;
 
     
-
     public String getFirstName() {
         return firstName;
     }
@@ -81,13 +87,13 @@ public class UpdateEmployeeDTO {
         this.startDate = startDate;
     }
 
-    public Boolean getOnGoing() {
-        return onGoing;
-    }
+    // public Boolean getOnGoing() {
+    //     return onGoing;
+    // }
 
-    public void setOnGoing(Boolean onGoing) {
-        this.onGoing = onGoing;
-    }
+    // public void setOnGoing(Boolean onGoing) {
+    //     this.onGoing = onGoing;
+    // }
 
     public Integer getHoursPerWeek() {
         return hoursPerWeek;
@@ -100,12 +106,6 @@ public class UpdateEmployeeDTO {
     public UpdateEmployeeDTO() {
     }
 
-    @Override
-    public String toString() {
-        return "UpdateEmployeeDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
-                + ", employeeStatus=" + employeeStatus + "]";
-    }
-
     public EmployeeStatus getEmployeeStatus() {
         return employeeStatus;
     }
@@ -113,4 +113,30 @@ public class UpdateEmployeeDTO {
     public void setEmployeeStatus(EmployeeStatus employeeStatus) {
         this.employeeStatus = employeeStatus;
     }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "UpdateEmployeeDTO [firstName=" + firstName + ", middleName=" + middleName + ", lastName=" + lastName
+                + ", employeeStatus=" + employeeStatus + ", emailAddress=" + emailAddress + ", mobileNumber="
+                + mobileNumber + ", address=" + address + ", startDate=" + startDate + ", endDate=" + endDate
+                + ", hoursPerWeek=" + hoursPerWeek + "]";
+    }
+
+
 }

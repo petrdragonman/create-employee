@@ -5,7 +5,20 @@
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  //justify-content: flex-start;
+  border: 1px solid red;
+}
+
+// .PERMANENT_FULL_TIME {
+//   background-color: #e6f7ee;
+// }
+
+.CASUAL {
+  //background-color: #fff8e6;
+  background-color: #e6f7ee;
+}
+
+.CONTRACT {
+  background-color: #e6f0ff;
 }
 
 .row {
@@ -19,63 +32,60 @@
     background-color: #f6e7e1;
     cursor: pointer;
   }
-}
-.item {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
-.group_name {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: 10px;
-  //padding-right: 20px;
-  width: 200px;
-}
-
-.group_icons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  //width: 100px;
-  padding-left: 20px;
-}
-
-.item_id {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 10px;
-}
-
-.item_mobile {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 120px;
-}
-
-.item_email {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 220px;
-}
-
-.item_status {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 80px;
-}
-
-.item_icon {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 20px;
+  .item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .group_name {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 200px;
+  }
+  .group_icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-left: 20px;
+  }
+  .item_id {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 10px;
+  }
+  .item_mobile {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 120px;
+  }
+  .item_email {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 220px;
+  }
+  .item_status {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 200px;
+  }
+  .item_hours {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 140px;
+  }
+  .item_icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 20px;
+  }
 }

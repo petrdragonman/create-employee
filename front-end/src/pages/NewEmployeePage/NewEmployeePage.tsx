@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import EmployeeForm from "../../components/EmployeeForm/EmployeeForm";
 import { EmployeeFormData } from "../../components/EmployeeForm/schema";
-import { createNewEmployee } from "../../state/employeeSlice";
+import { createNewEmployee } from "../../state/employee/employeeSlice";
 import classes from "./NewEmployeePage.module.scss";
 import { useNavigate } from "react-router";
 import { RootState } from "../../state/store";
@@ -18,9 +18,7 @@ const NewEmployeePage = () => {
       .then(() => {
         navigate("/employees");
       })
-      .catch((error) => {
-        console.error("Failed to create employee:", error);
-      });
+      .catch(() => {});
   };
 
   return (
