@@ -5,12 +5,12 @@ import java.util.Objects;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-
 import com.petr.create_employee.Employee.Employee.EmployeeStatus;
 import com.petr.create_employee.common.ValidationErrors;
 import com.petr.create_employee.common.exceptions.DuplicateEmailException;
 import com.petr.create_employee.common.exceptions.DuplicateMobileException;
 import com.petr.create_employee.common.exceptions.ServiceValidationException;
+
 @Service
 public class EmployeeService {
 
@@ -118,8 +118,6 @@ public class EmployeeService {
             System.out.println("HAS ERRORRS");
             throw new ServiceValidationException(errors);
         }
-
-
 
         mapper.map(data, foundEmployee);
         if(data.getEndDate() == null) {

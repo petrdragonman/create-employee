@@ -120,7 +120,6 @@ public class EmployeeEndToEndTest {
             .post("/employees")
         .then()
             .statusCode(HttpStatus.BAD_REQUEST.value());
-            //.body("errors", hasItems("First name is required", "Email is required"));
     }
 
     @Test

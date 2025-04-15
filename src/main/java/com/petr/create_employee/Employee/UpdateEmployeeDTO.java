@@ -5,7 +5,6 @@ import com.petr.create_employee.Employee.Employee.EmployeeStatus;
 import com.petr.create_employee.Employee.validation.EndDate.DateRangeContainer;
 import com.petr.create_employee.Employee.validation.EndDate.EndDateValid;
 import com.petr.create_employee.Employee.validation.HoursPerWeek.HoursRangeContainer;
-
 import jakarta.validation.constraints.Pattern;
 
 
@@ -33,7 +32,6 @@ public class UpdateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
 
     private Integer hoursPerWeek;
 
-    
     public String getFirstName() {
         return firstName;
     }
