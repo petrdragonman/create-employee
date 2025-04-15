@@ -64,11 +64,6 @@ const EmployeesPage = () => {
         confirmVariant="danger"
       />
       <article className={classes.title}>Create Employee App</article>
-      {/* <section className={classes.btn_create}>
-        <Button variant="primary" onClick={handleCreateClick}>
-          Create Employee
-        </Button>
-      </section> */}
       <section className={classes.list}>
         <section className={classes.btn_create}>
           <Button variant="primary" onClick={handleCreateClick}>

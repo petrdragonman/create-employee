@@ -13,7 +13,6 @@ import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 @Table(name="employees")
-//@EndDateValid // custom validation annotation
 public class Employee extends BaseEntity {
 
     public enum EmployeeStatus {

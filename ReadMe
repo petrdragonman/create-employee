@@ -1,0 +1,72 @@
+# Create Employee App
+
+## Demo & Snippets
+
+---
+
+## Requirements / Purpose
+
+- MVP - front-end
+- A web application to create, list, modify and delete employees.
+- React
+- Typescript
+
+- MVP - back-end
+- A spring RESTful API
+
+---
+
+## Build Steps
+
+- how to build / run project
+
+```bash
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.profiles.active=test
+```
+
+---
+
+## Design Goals / Approach
+
+- I chose to use ModelMapper in this project, mostly from learning perspective. I know that this is a small project to use a full benefit for ModelMapper. Despite it took a more time to set up, I do like using it.
+- I chose to use JavaFaker for data seeding
+- I am using Abstract class as a BaseEntity class holding ID, createdAt and updatedAt, which is then inherited by the child
+- For testing I chose RestAssure for end to end testing and Mockito for unit testing
+
+- I chose to use React-Hook-Form
+- I chose to use schema based validation - zod
+- I am using React Redux
+
+---
+
+## Features
+
+- What features does the project have?
+- Front end - React
+- CRUD for employee
+
+---
+
+## Known issues
+
+---
+
+## Future Goals
+
+- ***
+
+## What did you struggle with?
+
+- Handling State with React Redux, Error handling strategy
+
+---
+
+## Licensing Details
+
+- Public, free

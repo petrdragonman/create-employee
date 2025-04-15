@@ -58,7 +58,7 @@ const EditEmployeePage = () => {
     endDate: currentEmployee.endDate?.split("T")[0] || "", // Format date
     hoursPerWeek: currentEmployee.hoursPerWeek,
     employeeStatus: currentEmployee.employeeStatus,
-    onGoing: currentEmployee.onGoing,
+    //onGoing: currentEmployee.onGoing,
   };
 
   return (
