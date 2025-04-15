@@ -51,7 +51,7 @@ public class EmployeeController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Employee> updateById(@PathVariable Long id, @Valid @RequestBody UpdateEmployeeDTO data) throws NotFoundException {
+    public ResponseEntity<Employee> updateById(@PathVariable Long id, @Valid @RequestBody UpdateEmployeeDTO data) throws NotFoundException, ServiceValidationException {
         Optional<Employee> result = this.employeeService.updateById(id, data);
         Employee foundEmployee = result.orElseThrow(() -> new NotFoundException("Could not update Employee with id: " + id));
         return new ResponseEntity<>(foundEmployee, HttpStatus.OK);
