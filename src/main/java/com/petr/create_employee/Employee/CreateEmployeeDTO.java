@@ -5,7 +5,6 @@ import com.petr.create_employee.Employee.Employee.EmployeeStatus;
 import com.petr.create_employee.Employee.validation.EndDate.DateRangeContainer;
 import com.petr.create_employee.Employee.validation.EndDate.EndDateValid;
 import com.petr.create_employee.Employee.validation.HoursPerWeek.HoursRangeContainer;
-
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -36,11 +35,8 @@ public class CreateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
     @NotNull
     private LocalDate startDate;
 
-
     private LocalDate endDate;
 
-    // @NotNull
-    // private Boolean onGoing;
 
     @NotNull
     @Min(value = 1, message = "Hours per week must be at least 1")
@@ -71,15 +67,9 @@ public class CreateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
         return startDate;
     }
 
-    // public Boolean getOnGoing() {
-    //     return onGoing;
-    // }
-
     public Integer getHoursPerWeek() {
         return hoursPerWeek;
     }
-
-    
 
     @Override
     public String toString() {

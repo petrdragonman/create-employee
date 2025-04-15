@@ -1,7 +1,6 @@
 package com.petr.create_employee.common;
 
 import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

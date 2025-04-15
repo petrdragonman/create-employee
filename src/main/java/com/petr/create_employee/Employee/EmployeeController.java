@@ -2,16 +2,12 @@ package com.petr.create_employee.Employee;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.petr.create_employee.common.exceptions.DuplicateEmailException;
 import com.petr.create_employee.common.exceptions.NotFoundException;
 import com.petr.create_employee.common.exceptions.ServiceValidationException;
-
 import jakarta.validation.Valid;
-
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,7 +47,7 @@ public class EmployeeController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Employee> updateById(@PathVariable Long id, @Valid @RequestBody UpdateEmployeeDTO data) throws NotFoundException {
+    public ResponseEntity<Employee> updateById(@PathVariable Long id, @Valid @RequestBody UpdateEmployeeDTO data) throws NotFoundException, ServiceValidationException {
         Optional<Employee> result = this.employeeService.updateById(id, data);
         Employee foundEmployee = result.orElseThrow(() -> new NotFoundException("Could not update Employee with id: " + id));
         return new ResponseEntity<>(foundEmployee, HttpStatus.OK);
@@ -65,8 +61,4 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    
-
-    
-    
 }

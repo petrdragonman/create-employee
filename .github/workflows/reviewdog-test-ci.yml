@@ -1,10 +1,10 @@
-name: Lint
+name: create employee ci
 on:
   pull_request:
     branches: ["main", "develop"]
 jobs:
   eslint:
-    name: runner / eslint
+    name: runner
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -20,29 +20,3 @@ jobs:
           #cache: maven
       - name: Build and test with Maven
         run: mvn --batch-mode package
-
-      # - name: Set up JDK 21
-      #   uses: actions/setup-java@v2
-      #   with:
-      #     distribution: temurin
-      #     java-version: 21
-
-      # - name: Cache Maven packages
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: ~/.m2
-      #     key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-      #     restore-keys: ${{ runner.os }}-maven
-
-      # - name: Build
-      #   run: mvn clean install
-
-      # - name: Run tests
-      #   run: mvn test
-
-      # - name: Upload Test Results
-      #   if: always()
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: test-results
-      #     path: create_employee/target/surefire-reports/

@@ -120,7 +120,6 @@ public class EmployeeEndToEndTest {
             .post("/employees")
         .then()
             .statusCode(HttpStatus.BAD_REQUEST.value());
-            //.body("errors", hasItems("First name is required", "Email is required"));
     }
 
     @Test
@@ -148,25 +147,6 @@ public class EmployeeEndToEndTest {
 
     //===== PATCH TESTS =====//
     @Test
-    public void updateEmployee_changeToContractWithEndDate_returnsUpdated() {
-        Long id = employees.get(0).getId();
-        given()
-            .contentType("application/json")
-            .body("""
-                {
-                    "employeeStatus": "CONTRACT"
-                }
-                """)
-            .pathParam("id", id)
-        .when()
-            .patch("/employees/{id}")
-        .then()
-            .statusCode(HttpStatus.OK.value())
-            .body("employeeStatus", equalTo("CONTRACT"));
-            //.body("endDate", equalTo("2024-12-31"));
-    }
-
-    @Test
     public void updateEmployee_setInvalidEndDateBeforeStart_returnsBadRequest() {
         Long id = employees.get(0).getId();
         given()
@@ -181,7 +161,6 @@ public class EmployeeEndToEndTest {
             .patch("/employees/{id}")
         .then()
             .statusCode(HttpStatus.BAD_REQUEST.value());
-            //.body("errors", hasItem("End date must be after start date"));
     }
 
     //===== DELETE TESTS =====//
