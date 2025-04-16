@@ -37,7 +37,6 @@ public class CreateEmployeeDTO implements DateRangeContainer, HoursRangeContaine
 
     private LocalDate endDate;
 
-
     @NotNull
     @Min(value = 1, message = "Hours per week must be at least 1")
     @Max(value = 40, message = "Hours per week can not be more than 40")

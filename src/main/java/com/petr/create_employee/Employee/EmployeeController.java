@@ -28,7 +28,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> createEmployee(@RequestBody @Valid CreateEmployeeDTO data) throws DuplicateEmailException, ServiceValidationException {
+    public ResponseEntity<Employee> createEmployee(@RequestBody @Valid CreateEmployeeDTO data) throws ServiceValidationException {
         Employee newEmployee = this.employeeService.createEmployee(data);
         return new ResponseEntity<Employee>(newEmployee, HttpStatus.CREATED);
     }
