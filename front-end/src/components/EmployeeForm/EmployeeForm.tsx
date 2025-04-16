@@ -21,14 +21,11 @@ const EmployeeForm = ({
   const {
     handleSubmit,
     register,
-    formState: { isSubmitSuccessful, errors },
-    reset,
+    formState: { errors },
   } = useForm<EmployeeFormData>({
     resolver: zodResolver(schema),
     defaultValues,
   });
-
-  //isSubmitSuccessful && reset();
 
   const handleCancelClick = () => {
     navigate("/employees");
@@ -160,17 +157,6 @@ const EmployeeForm = ({
           </small>
         )}
       </article>
-      {/* <article className={classes.field}>
-        <label className={classes.custom_checkbox}>On Going</label>
-        <input
-          type="checkbox"
-          {...register("onGoing")}
-          className={classes.checkmark}
-        />
-        {errors?.onGoing && (
-          <small className={classes.error_text}>{errors.onGoing.message}</small>
-        )}
-      </article> */}
       <section className={classes.btn_container}>
         <article>
           <Button variant={"secondary"} onClick={handleCancelClick}>

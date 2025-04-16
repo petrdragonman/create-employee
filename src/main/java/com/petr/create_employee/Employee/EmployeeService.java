@@ -7,8 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import com.petr.create_employee.Employee.Employee.EmployeeStatus;
 import com.petr.create_employee.common.ValidationErrors;
-import com.petr.create_employee.common.exceptions.DuplicateEmailException;
-import com.petr.create_employee.common.exceptions.DuplicateMobileException;
 import com.petr.create_employee.common.exceptions.ServiceValidationException;
 
 @Service
@@ -21,7 +19,7 @@ public class EmployeeService {
         this.repo = repo;
         this.mapper = mapper;
     } 
-    public Employee createEmployee(CreateEmployeeDTO data) throws DuplicateEmailException, ServiceValidationException {
+    public Employee createEmployee(CreateEmployeeDTO data) throws ServiceValidationException {
         final int FULL_TIME_HOURS = 40;
         final int MAX_PART_TIME_HOURS = 35;
         EmployeeStatus employeeStatus = data.getEmployeeStatus();
@@ -57,7 +55,7 @@ public class EmployeeService {
         }
 
         Employee newEmployee = mapper.map(data, Employee.class);
-        this.repo.saveAndFlush(newEmployee);
+        this.repo.save(newEmployee);
         return newEmployee;
     }
     public List<Employee> getAll() {
@@ -74,7 +72,7 @@ public class EmployeeService {
         this.repo.delete(result.get());
         return true;
     }
-    public Optional<Employee> updateById(Long id, UpdateEmployeeDTO data) throws DuplicateMobileException, ServiceValidationException {
+    public Optional<Employee> updateById(Long id, UpdateEmployeeDTO data) throws ServiceValidationException {
         final int FULL_TIME_HOURS = 40;
         final int MAX_PART_TIME_HOURS = 35;
         EmployeeStatus employeeStatus = data.getEmployeeStatus();
