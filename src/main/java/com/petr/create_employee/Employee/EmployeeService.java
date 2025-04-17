@@ -50,7 +50,6 @@ public class EmployeeService {
         }
 
         if(errors.hasErrors()) {
-            System.out.println("HAS ERRORRS");
             throw new ServiceValidationException(errors);
         }
 
